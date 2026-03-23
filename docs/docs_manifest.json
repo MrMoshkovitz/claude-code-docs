@@ -274,8 +274,8 @@
     "plugin-marketplaces.md": {
       "original_url": "https://code.claude.com/docs/en/plugin-marketplaces",
       "original_md_url": "https://code.claude.com/docs/en/plugin-marketplaces.md",
-      "hash": "48ed00a91032e4e37e31be6d67be1967749d84d69a7714571693241f3089d7ea",
-      "last_updated": "2026-03-20T15:13:48.283060"
+      "hash": "6168e4f8ef56b93633b75c283eb3f9d481572d671110a6a99f6dff1e495f4361",
+      "last_updated": "2026-03-23T21:09:06.729968"
     },
     "plugins.md": {
       "original_url": "https://code.claude.com/docs/en/plugins",
@@ -411,8 +411,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-03-23T18:13:37.543615",
-    "fetch_duration_seconds": 39.424526,
+    "last_fetch_completed": "2026-03-23T21:09:19.592925",
+    "fetch_duration_seconds": 39.514681,
     "total_pages_discovered": 68,
     "pages_fetched_successfully": 69,
     "pages_failed": 0,
@@ -422,7 +422,7 @@
     "total_files": 68,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-03-23T18:13:37.543631",
+  "last_updated": "2026-03-23T21:09:19.592955",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
