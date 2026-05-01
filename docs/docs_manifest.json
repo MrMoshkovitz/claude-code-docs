@@ -358,8 +358,8 @@
     "env-vars.md": {
       "original_url": "https://code.claude.com/docs/en/env-vars",
       "original_md_url": "https://code.claude.com/docs/en/env-vars.md",
-      "hash": "482f607df090041657d34f568ebc8e8aa493e7c8651a0bdf602f8395b379fe33",
-      "last_updated": "2026-05-01T04:21:34.288406"
+      "hash": "f0777891f5512aebfceb58bf3dd28002e7733c26ba0c76adcb52adb290c9aa24",
+      "last_updated": "2026-05-01T18:19:03.790390"
     },
     "errors.md": {
       "original_url": "https://code.claude.com/docs/en/errors",
@@ -741,8 +741,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-05-01T15:20:00.715857",
-    "fetch_duration_seconds": 65.753049,
+    "last_fetch_completed": "2026-05-01T18:19:43.209119",
+    "fetch_duration_seconds": 76.917183,
     "total_pages_discovered": 123,
     "pages_fetched_successfully": 124,
     "pages_failed": 0,
@@ -752,7 +752,7 @@
     "total_files": 123,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-05-01T15:20:00.715885",
+  "last_updated": "2026-05-01T18:19:43.209152",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
