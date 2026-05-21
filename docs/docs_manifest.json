@@ -400,8 +400,8 @@
     "errors.md": {
       "original_url": "https://code.claude.com/docs/en/errors",
       "original_md_url": "https://code.claude.com/docs/en/errors.md",
-      "hash": "9fcc85085f723df6d5eba6bf553eb6fb7e1f49429e1808d023b1800ca07effd6",
-      "last_updated": "2026-05-19T04:23:56.644320"
+      "hash": "d392f4aeb7a709df96db1543297231df1ca106ab1207abb6c30207d0de42bc31",
+      "last_updated": "2026-05-21T16:04:42.687971"
     },
     "fast-mode.md": {
       "original_url": "https://code.claude.com/docs/en/fast-mode",
@@ -831,8 +831,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-05-21T12:58:55.256040",
-    "fetch_duration_seconds": 72.815052,
+    "last_fetch_completed": "2026-05-21T16:05:22.412576",
+    "fetch_duration_seconds": 76.873209,
     "total_pages_discovered": 138,
     "pages_fetched_successfully": 139,
     "pages_failed": 0,
@@ -842,7 +842,7 @@
     "total_files": 138,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-05-21T12:58:55.256090",
+  "last_updated": "2026-05-21T16:05:22.412603",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
