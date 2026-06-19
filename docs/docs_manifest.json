@@ -255,8 +255,8 @@
     "changelog.md": {
       "original_url": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
       "original_raw_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
-      "hash": "77efe7462c4bf36ec86349ddd5448fdb9ecdc166606aa6a767b5b02abb2aea56",
-      "last_updated": "2026-06-18T00:33:26.213565",
+      "hash": "51741ac882453be972eab4e0b1eadc8a21c9cd3d7f03f7043461b8fcab62b063",
+      "last_updated": "2026-06-19T00:36:55.850455",
       "source": "claude-code-repository"
     },
     "channels.md": {
@@ -897,8 +897,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-06-18T21:40:46.433482",
-    "fetch_duration_seconds": 150.431277,
+    "last_fetch_completed": "2026-06-19T00:36:55.850500",
+    "fetch_duration_seconds": 150.408828,
     "total_pages_discovered": 149,
     "pages_fetched_successfully": 150,
     "pages_failed": 0,
@@ -908,7 +908,7 @@
     "total_files": 149,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-06-18T21:40:46.433509",
+  "last_updated": "2026-06-19T00:36:55.850524",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
