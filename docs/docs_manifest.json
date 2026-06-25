@@ -195,8 +195,8 @@
     "agent-teams.md": {
       "original_url": "https://code.claude.com/docs/en/agent-teams",
       "original_md_url": "https://code.claude.com/docs/en/agent-teams.md",
-      "hash": "4cb1bdadb4454a25ef6eca069acb438420ec6014b1858dc3df46f9e986df69cc",
-      "last_updated": "2026-06-23T00:27:11.692197"
+      "hash": "cdce63417a062bf72f8c0ff7ce38ddaffeb5e3851da8afb16c287982de4964aa",
+      "last_updated": "2026-06-25T18:40:07.388687"
     },
     "agent-view.md": {
       "original_url": "https://code.claude.com/docs/en/agent-view",
@@ -358,8 +358,8 @@
     "debug-your-config.md": {
       "original_url": "https://code.claude.com/docs/en/debug-your-config",
       "original_md_url": "https://code.claude.com/docs/en/debug-your-config.md",
-      "hash": "c229979ad3ec811ffc195ebd285fb8232780909d824b972c01cf06a06ba59d5d",
-      "last_updated": "2026-06-09T16:00:14.511033"
+      "hash": "544d91724aa4dc3bc2226976feda6934345b7a5a87b7b8502ca508b62140cb26",
+      "last_updated": "2026-06-25T18:40:32.320821"
     },
     "deep-links.md": {
       "original_url": "https://code.claude.com/docs/en/deep-links",
@@ -478,8 +478,8 @@
     "hooks-guide.md": {
       "original_url": "https://code.claude.com/docs/en/hooks-guide",
       "original_md_url": "https://code.claude.com/docs/en/hooks-guide.md",
-      "hash": "527cb9e1914de025886e6b331f9f9623aff529ff4e6e60a49ca0ef373ce2451b",
-      "last_updated": "2026-06-09T21:32:32.942170"
+      "hash": "e623e705dabb65c052e53683653f82b156a114b91e64188dc5f75dc785b88ea3",
+      "last_updated": "2026-06-25T18:40:55.777980"
     },
     "how-claude-code-works.md": {
       "original_url": "https://code.claude.com/docs/en/how-claude-code-works",
@@ -676,8 +676,8 @@
     "remote-control.md": {
       "original_url": "https://code.claude.com/docs/en/remote-control",
       "original_md_url": "https://code.claude.com/docs/en/remote-control.md",
-      "hash": "f8cadd425e73e61f5a77d90197535ecdf6f64d7f7bfb1ad7b9a914f89cca6fb2",
-      "last_updated": "2026-06-18T21:40:08.024183"
+      "hash": "d3c58380cbc3b0f809e89bab1686188fe084390a7d06562254a646dfe02dd6c1",
+      "last_updated": "2026-06-25T18:41:32.598581"
     },
     "routines.md": {
       "original_url": "https://code.claude.com/docs/en/routines",
@@ -921,8 +921,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-06-25T15:52:22.276362",
-    "fetch_duration_seconds": 168.957244,
+    "last_fetch_completed": "2026-06-25T18:42:29.189299",
+    "fetch_duration_seconds": 179.059657,
     "total_pages_discovered": 153,
     "pages_fetched_successfully": 154,
     "pages_failed": 0,
@@ -932,7 +932,7 @@
     "total_files": 153,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-06-25T15:52:22.276390",
+  "last_updated": "2026-06-25T18:42:29.189331",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
