@@ -105,7 +105,7 @@ Claude Code sets `CLAUDE_PROJECT_DIR` in the spawned server's environment to the
 
 `CLAUDE_PROJECT_DIR` is the stable project root and doesn't change when you add or remove working directories mid-session. A server that limits its own filesystem access to a set of allowed directories should implement the MCP `roots/list` request instead. Claude Code answers `roots/list` with the session's launch directory plus every [additional working directory](/en/permissions#working-directories) you've granted with `--add-dir`, `/add-dir`, or the `additionalDirectories` setting. Claude Code sends `notifications/roots/list_changed` when that set changes. Before v2.1.203, `roots/list` returned only the launch directory and Claude Code didn't send `notifications/roots/list_changed`.
 
-This variable is set in the server's environment, not in Claude Code's own environment, so referencing it via `${VAR}` expansion in a project- or user-scoped `.mcp.json` `command` or `args` requires a default such as `${CLAUDE_PROJECT_DIR:-.}`. Plugin-provided MCP configurations substitute `${CLAUDE_PROJECT_DIR}` directly and don't need the default.
+This variable is set in the server's environment, not in Claude Code's own environment, so referencing it via `${VAR}` expansion in the `command` or `args` of a project-scoped `.mcp.json` entry or a local- or user-scoped server entry in `~/.claude.json` requires a default such as `${CLAUDE_PROJECT_DIR:-.}`. Plugin-provided MCP configurations substitute `${CLAUDE_PROJECT_DIR}` directly and don't need the default.
 
 ```bash theme={null}
 # Basic syntax
@@ -434,7 +434,7 @@ Environment variables can be expanded in:
 }
 ```
 
-If a referenced environment variable isn't set and has no default value, Claude Code leaves the literal `${VAR}` text in the value and reports a missing-variable warning for that server. The config still loads, so set the variable or add a `:-default` fallback so the server starts with the value you intend.
+If a referenced environment variable isn't set and has no default value, the config still loads: Claude Code reports a missing-variable warning for that server in `claude mcp list` output and uses the unexpanded `${VAR}` text as-is. Set the variable or add a `:-default` fallback so the server starts with the value you intend.
 
 ## Practical examples
 
