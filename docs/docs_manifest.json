@@ -286,8 +286,8 @@
     "chrome.md": {
       "original_url": "https://code.claude.com/docs/en/chrome",
       "original_md_url": "https://code.claude.com/docs/en/chrome.md",
-      "hash": "8dc6461269855d7c01b35a9424a2fd24e0ce473a380cb101b026557bd8c4f639",
-      "last_updated": "2026-07-21T04:02:12.536606"
+      "hash": "5a950a736c9b5b79672a8f447173e0dffccbf0a08427ec34a3633200b31586d9",
+      "last_updated": "2026-07-21T15:31:36.981934"
     },
     "claude-apps-gateway.md": {
       "original_url": "https://code.claude.com/docs/en/claude-apps-gateway",
@@ -1023,8 +1023,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-07-21T12:31:21.847135",
-    "fetch_duration_seconds": 169.045162,
+    "last_fetch_completed": "2026-07-21T15:33:44.578900",
+    "fetch_duration_seconds": 182.758986,
     "total_pages_discovered": 170,
     "pages_fetched_successfully": 171,
     "pages_failed": 0,
@@ -1034,7 +1034,7 @@
     "total_files": 170,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-07-21T12:31:21.847161",
+  "last_updated": "2026-07-21T15:33:44.578933",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
