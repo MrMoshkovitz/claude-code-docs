@@ -337,6 +337,12 @@
       "hash": "2954025b78406bd6f20b4104397f7a8595f7365ed3aef4af27b3296de6a7204d",
       "last_updated": "2026-07-21T04:02:19.611703"
     },
+    "claude-security.md": {
+      "original_url": "https://code.claude.com/docs/en/claude-security",
+      "original_md_url": "https://code.claude.com/docs/en/claude-security.md",
+      "hash": "5861a8cab1ccc7af463546a1cc3b12cf6ef23a62fb4309148b3b5a9d81ebc634",
+      "last_updated": "2026-07-22T18:24:58.452720"
+    },
     "cli-reference.md": {
       "original_url": "https://code.claude.com/docs/en/cli-reference",
       "original_md_url": "https://code.claude.com/docs/en/cli-reference.md",
@@ -790,8 +796,8 @@
     "security-guidance.md": {
       "original_url": "https://code.claude.com/docs/en/security-guidance",
       "original_md_url": "https://code.claude.com/docs/en/security-guidance.md",
-      "hash": "3536885c6fca282c58ef05a2b48e85cbe35a66b518e882ce3dd9d10f5095c792",
-      "last_updated": "2026-07-21T04:03:18.801905"
+      "hash": "6902efc58e5081202cafc7390023ebdea96b6e978c60456587d021171f9828c9",
+      "last_updated": "2026-07-22T18:31:56.187597"
     },
     "server-managed-settings.md": {
       "original_url": "https://code.claude.com/docs/en/server-managed-settings",
@@ -802,8 +808,8 @@
     "sessions.md": {
       "original_url": "https://code.claude.com/docs/en/sessions",
       "original_md_url": "https://code.claude.com/docs/en/sessions.md",
-      "hash": "b3d24e7fe93c708e6804574f564cbaf371c92506a2a6b798f329bfbd93791b33",
-      "last_updated": "2026-07-21T18:27:28.316552"
+      "hash": "d6c8b886a582e21dd7698e5a3a79e96a7d3dc9c5eb73d9cb4901d0233951fbd0",
+      "last_updated": "2026-07-22T18:31:59.322234"
     },
     "settings.md": {
       "original_url": "https://code.claude.com/docs/en/settings",
@@ -1029,18 +1035,18 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-07-22T15:32:28.447417",
-    "fetch_duration_seconds": 162.038507,
-    "total_pages_discovered": 171,
-    "pages_fetched_successfully": 172,
+    "last_fetch_completed": "2026-07-22T18:34:21.854587",
+    "fetch_duration_seconds": 728.950113,
+    "total_pages_discovered": 172,
+    "pages_fetched_successfully": 173,
     "pages_failed": 0,
     "failed_pages": [],
     "sitemap_url": "https://code.claude.com/docs/sitemap.xml",
     "base_url": "https://code.claude.com",
-    "total_files": 171,
+    "total_files": 172,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-07-22T15:32:28.447446",
+  "last_updated": "2026-07-22T18:34:21.854615",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
