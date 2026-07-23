@@ -3,8 +3,8 @@
     "accessibility.md": {
       "original_url": "https://code.claude.com/docs/en/accessibility",
       "original_md_url": "https://code.claude.com/docs/en/accessibility.md",
-      "hash": "c5d715d12d3b7943daa3b6000633587ae20defc6a10418c48b918f12cecefee1",
-      "last_updated": "2026-07-21T04:01:26.012071"
+      "hash": "59e2a48b9bd227f5e426e25f20bbf200231d58ed248aec5c21812c9017c8a64f",
+      "last_updated": "2026-07-23T00:20:00.427341"
     },
     "admin-setup.md": {
       "original_url": "https://code.claude.com/docs/en/admin-setup",
@@ -261,8 +261,8 @@
     "changelog.md": {
       "original_url": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
       "original_raw_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
-      "hash": "db1ec09df9afe0b951ce9c09c5eb78ab6125b84732f080ad7279145ff04c1f6f",
-      "last_updated": "2026-07-22T00:21:03.751723",
+      "hash": "73f2b26144e9e5cfc9cc61f8982dd0c1e2d91a1e6f5c5e4fc96b07fd85224297",
+      "last_updated": "2026-07-23T00:26:47.811547",
       "source": "claude-code-repository"
     },
     "channels.md": {
@@ -568,8 +568,8 @@
     "interactive-mode.md": {
       "original_url": "https://code.claude.com/docs/en/interactive-mode",
       "original_md_url": "https://code.claude.com/docs/en/interactive-mode.md",
-      "hash": "e3fe4eeaaeba61db0f813edda17227e81c0eb8fc635253475042eb7aa665ad24",
-      "last_updated": "2026-07-22T21:24:08.361419"
+      "hash": "282f0498c0dd2600fb538f616eae32f9c3d200e9edb8e7c734d66371586b01c0",
+      "last_updated": "2026-07-23T00:22:05.675386"
     },
     "jetbrains.md": {
       "original_url": "https://code.claude.com/docs/en/jetbrains",
@@ -580,8 +580,8 @@
     "keybindings.md": {
       "original_url": "https://code.claude.com/docs/en/keybindings",
       "original_md_url": "https://code.claude.com/docs/en/keybindings.md",
-      "hash": "21e693e3bb174f0e56af8b16f9d707424584cb3a2ca1e186e0e20b513470d134",
-      "last_updated": "2026-07-21T04:02:51.428490"
+      "hash": "f601200bb8f7f85713714734668e166b80572887abaa39cc9705aa9fb67f275b",
+      "last_updated": "2026-07-23T00:22:08.729844"
     },
     "large-codebases.md": {
       "original_url": "https://code.claude.com/docs/en/large-codebases",
@@ -628,8 +628,8 @@
     "mcp.md": {
       "original_url": "https://code.claude.com/docs/en/mcp",
       "original_md_url": "https://code.claude.com/docs/en/mcp.md",
-      "hash": "7602c09a1b7cb2454d6558e91cdaea235423be986370512c69a49c6d90be8efc",
-      "last_updated": "2026-07-22T00:20:10.365400"
+      "hash": "bb18bce4798ad24ad1b4c57a44e94979943b8911ff1997ff4a08082a7914fe4d",
+      "last_updated": "2026-07-23T00:22:33.876962"
     },
     "mcp-quickstart.md": {
       "original_url": "https://code.claude.com/docs/en/mcp-quickstart",
@@ -664,8 +664,8 @@
     "monitoring-usage.md": {
       "original_url": "https://code.claude.com/docs/en/monitoring-usage",
       "original_md_url": "https://code.claude.com/docs/en/monitoring-usage.md",
-      "hash": "22d3437deb18232fc8ad4ee1bb5342ee69ccc7e356afcbf9b14dd8dcbfc931b4",
-      "last_updated": "2026-07-21T18:27:06.171402"
+      "hash": "df45b53c15b5447ff4881cbf8c488b0cf1d1506f07c3ce04995c513a07198861",
+      "last_updated": "2026-07-23T00:23:01.809354"
     },
     "network-config.md": {
       "original_url": "https://code.claude.com/docs/en/network-config",
@@ -1035,8 +1035,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-07-22T21:25:11.885466",
-    "fetch_duration_seconds": 178.805663,
+    "last_fetch_completed": "2026-07-23T00:26:47.811595",
+    "fetch_duration_seconds": 408.795313,
     "total_pages_discovered": 172,
     "pages_fetched_successfully": 173,
     "pages_failed": 0,
@@ -1046,7 +1046,7 @@
     "total_files": 172,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-07-22T21:25:11.885488",
+  "last_updated": "2026-07-23T00:26:47.811611",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
