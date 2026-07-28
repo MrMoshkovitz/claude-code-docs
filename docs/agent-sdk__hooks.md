@@ -232,7 +232,7 @@ Hyphens in the exact-match set require a Claude Code runtime of v2.1.195 or late
 | --------- | ---------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `matcher` | `string`         | `undefined` | Pattern matched against the event's filter field, following the comparison rules above. For tool hooks, this is the tool name. Built-in tools include `Bash`, `Read`, `Write`, `Edit`, `Glob`, `Grep`, `WebFetch`, `Agent`, and others (see [Tool Input Types](/docs/en/agent-sdk/typescript#tool-input-types) for the full list). MCP tools use the pattern `mcp__<server>__<action>`. |
 | `hooks`   | `HookCallback[]` | -           | Required. Array of callback functions to execute when the pattern matches                                                                                                                                                                                                                                                                                                          |
-| `timeout` | `number`         | `undefined` | Timeout in seconds. When omitted, the per-event default applies: 10 minutes for most events, 30 seconds for `UserPromptSubmit`. A few events run with shorter limits, such as 10 seconds for `MessageDisplay`                                                                                                                                                                      |
+| `timeout` | `number`         | `undefined` | Timeout in seconds. When omitted, Claude Code applies the [event's default timeout](#hook-timeout): 10 minutes for most events, 30 seconds for `UserPromptSubmit`. Claude Code uses shorter limits for a few events, such as 10 seconds for `MessageDisplay` and a 1.5-second default [budget](/docs/en/hooks#sessionend-input) for `SessionEnd`                                        |
 
 Use the `matcher` pattern to target specific tools whenever possible. A matcher with `'Bash'` only runs for Bash commands, while omitting the pattern runs your callbacks for every occurrence of the event.
 
@@ -788,12 +788,19 @@ const myHook: HookCallback = async (input, toolUseID, { signal }) => {
 
 ### Hook timeout
 
-* Increase the `timeout` value in the `HookMatcher` configuration
-* Use the `AbortSignal` from the third callback argument to handle cancellation gracefully in TypeScript
+Claude Code runs each callback with a timeout, which you set in seconds with the `timeout` field on its `HookMatcher`. When you don't set one, Claude Code uses the event's default: 600 seconds for most events, 30 seconds for `UserPromptSubmit`, and 10 seconds for `MessageDisplay`. Claude Code runs `SessionEnd` callbacks during shutdown under the shorter [SessionEnd timeout budget](/docs/en/hooks#sessionend-input).
 
-{/* min-version: 2.1.208 */}A `UserPromptSubmit` or [`UserPromptExpansion`](/docs/en/hooks#userpromptexpansion) callback that exceeds its timeout blocks that prompt with a timeout message and the session continues. Interrupting the query while a callback is pending cancels the pending tool call. Before v2.1.208, a callback timeout on those events ended the query with `error_during_execution`, and an interrupt during a pending `PreToolUse` callback could let the tool call proceed.
+When a callback exceeds its timeout, Claude Code cancels it and treats it as a failed hook: it discards the callback's output and the session continues rather than hanging. What happens next depends on the event:
 
-{/* min-version: 2.1.210 */}A `PreToolUse` callback that exceeds its timeout blocks the tool call, and Claude receives an error result naming the timeout. If another `PreToolUse` hook returned an explicit deny, Claude receives that denial instead. Before v2.1.210, Claude Code reported the timeout to Claude as if the user had rejected the tool call, so an unattended session stopped and waited for input.
+* `PreToolUse`: {/* min-version: 2.1.210 */}Claude Code doesn't run the tool call, Claude receives a tool result stating the hook didn't respond before its timeout, and the turn continues. If another `PreToolUse` hook returned an explicit deny, Claude receives that denial instead of the timeout error. Before v2.1.210, Claude Code reported the timeout to Claude as a user rejection, which made unattended sessions stop and wait for input.
+* `PostToolUse` and `PostToolUseFailure`: Claude Code keeps the tool result and the turn continues.
+* `UserPromptSubmit` and [`UserPromptExpansion`](/docs/en/hooks#userpromptexpansion): {/* min-version: 2.1.208 */}Claude Code blocks the prompt with a message naming the hook and the timeout, and the session continues. Because a callback on these events can act as a policy gate, Claude Code never lets a timed-out prompt through unscreened. Before v2.1.208, Claude Code ended the query with `error_during_execution` when a callback on these events timed out.
+* `Stop` and `SubagentStop`: Claude Code shows a warning and the agent stops normally.
+* Other events, such as `Notification` and `PreCompact`: Claude Code logs the failure and continues.
+
+{/* min-version: 2.1.208 */}If you interrupt the query while a callback is pending, Claude Code cancels the pending tool call. Before v2.1.208, the tool call could still proceed if you interrupted during a pending `PreToolUse` callback.
+
+If your callback needs more time, set a higher `timeout` on its `HookMatcher`. In TypeScript, use the `AbortSignal` from the third callback argument to handle cancellation gracefully when the timeout fires.
 
 ### Tool blocked unexpectedly
 
