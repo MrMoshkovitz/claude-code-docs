@@ -99,9 +99,11 @@ See [Settings files](/docs/en/settings#settings-files) for where each file lives
 
 ## Precedence
 
-Where the same behavior has both an environment variable and a settings field, the environment variable takes precedence. For example, `ANTHROPIC_MODEL` overrides the `model` setting, and `CLAUDE_CODE_AUTO_CONNECT_IDE` overrides `autoConnectIde`. The settings field applies when the environment variable is not set.
+Some behaviors have both an environment variable and a dedicated settings key. If you set both, the environment variable takes precedence. For example, `ANTHROPIC_MODEL` overrides the `model` setting, and `CLAUDE_CODE_AUTO_CONNECT_IDE` overrides `autoConnectIde`. Claude Code uses the settings key only when the environment variable is unset.
 
 When the same variable is set in both your shell and a settings file `env` block, the settings file value applies. Claude Code writes each `env` entry into the process environment at startup and again when the file changes, replacing the value inherited from the shell. A few variables are special-cased; the [`env` setting](/docs/en/settings#available-settings) lists the exceptions.
+
+In a settings file you can set a variable but you can't remove one. To override a variable you can't unset, such as a stale `CLAUDE_CODE_USE_VERTEX` exported by a shell profile you don't control, set it to an empty string in the `env` block: `"CLAUDE_CODE_USE_VERTEX": ""`. Claude Code treats the empty value as unset for provider selection. Subprocesses still inherit the empty value.
 
 Between settings files, `env` values follow [settings precedence](/docs/en/settings#settings-precedence), so a managed settings entry overrides the same variable in user or project settings.
 
