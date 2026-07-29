@@ -748,7 +748,7 @@ This replaces the deprecated `ignorePatterns` configuration. Files matching thes
 
 ## Subagent configuration
 
-Claude Code supports custom AI subagents that can be configured at both user and project levels. These subagents are stored as Markdown files with YAML frontmatter:
+Claude Code supports custom AI subagents that can be configured at both user and project levels. You define each subagent as a Markdown file with YAML frontmatter, saved in one of these locations:
 
 * **User subagents**: `~/.claude/agents/`, available across all your projects
 * **Project subagents**: `.claude/agents/`, specific to your project and shareable with your team
