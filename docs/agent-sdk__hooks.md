@@ -161,7 +161,7 @@ The SDK provides hooks for different stages of agent execution. Some hooks are a
 | `SubagentStop`                                         | Yes        | Yes            | Subagent completion                                                                                                                     | Aggregate results from parallel tasks                                       |
 | `PreCompact`                                           | Yes        | Yes            | Conversation compaction request                                                                                                         | Archive full transcript before summarizing                                  |
 | `PostCompact`                                          | No         | Yes            | Conversation compaction completes                                                                                                       | Log the generated summary                                                   |
-| `PermissionRequest`                                    | Yes        | Yes            | Permission dialog would be displayed                                                                                                    | Custom permission handling                                                  |
+| `PermissionRequest`                                    | Yes        | Yes            | A tool call needs a permission decision                                                                                                 | Custom permission handling                                                  |
 | `PermissionDenied`                                     | No         | Yes            | The auto mode classifier denies a tool call                                                                                             | Log classifier denials or tell the model it may retry                       |
 | `SessionStart`                                         | No         | Yes            | Session initialization                                                                                                                  | Initialize logging and telemetry                                            |
 | `SessionEnd`                                           | No         | Yes            | Session termination                                                                                                                     | Clean up temporary resources                                                |
@@ -178,6 +178,7 @@ The SDK provides hooks for different stages of agent execution. Some hooks are a
 | `WorktreeRemove`                                       | No         | Yes            | Git worktree removed                                                                                                                    | Clean up workspace resources                                                |
 | `CwdChanged`                                           | No         | Yes            | The working directory changes during a session                                                                                          | Reload environment variables per directory                                  |
 | `FileChanged`                                          | No         | Yes            | A watched file is modified, created, or deleted                                                                                         | Reload configuration when project files change                              |
+| `DirectoryAdded`                                       | No         | Yes            | A working directory is added during a session                                                                                           | Install dependencies for a repository added mid-session                     |
 
 ## Configure hooks
 
@@ -228,11 +229,11 @@ Hyphens in the exact-match set require a Claude Code runtime of v2.1.195 or late
 
 `StopFailure` and `FileChanged` use a narrower exact-match set of letters, digits, `_`, and `|` only. A hyphen, space, or comma in a matcher for those two events keeps it on the regular-expression path, and only `|` separates alternatives, so write `rate_limit|overloaded`, not `rate_limit, overloaded`. `FileChanged` additionally uses its matcher to build the watch list of literal filenames; see [FileChanged in the hooks reference](/docs/en/hooks#filechanged).
 
-| Option    | Type             | Default     | Description                                                                                                                                                                                                                                                                                                                                                                        |
-| --------- | ---------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `matcher` | `string`         | `undefined` | Pattern matched against the event's filter field, following the comparison rules above. For tool hooks, this is the tool name. Built-in tools include `Bash`, `Read`, `Write`, `Edit`, `Glob`, `Grep`, `WebFetch`, `Agent`, and others (see [Tool Input Types](/docs/en/agent-sdk/typescript#tool-input-types) for the full list). MCP tools use the pattern `mcp__<server>__<action>`. |
-| `hooks`   | `HookCallback[]` | -           | Required. Array of callback functions to execute when the pattern matches                                                                                                                                                                                                                                                                                                          |
-| `timeout` | `number`         | `undefined` | Timeout in seconds. When omitted, Claude Code applies the [event's default timeout](#hook-timeout): 10 minutes for most events, 30 seconds for `UserPromptSubmit`. Claude Code uses shorter limits for a few events, such as 10 seconds for `MessageDisplay` and a 1.5-second default [budget](/docs/en/hooks#sessionend-input) for `SessionEnd`                                        |
+| Option    | Type             | Default     | Description                                                                                                                                                                                                                                                                                                                                                                                        |
+| --------- | ---------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `matcher` | `string`         | `undefined` | Pattern matched against the event's filter field, following the comparison rules above. For tool hooks, this is the tool name. Built-in tools include `Bash`, `Read`, `Write`, `Edit`, `Glob`, `Grep`, `WebFetch`, `Agent`, and others (see [Tool Input Types](/docs/en/agent-sdk/typescript#tool-input-types) for the full list). MCP tools use the pattern `mcp__<server>__<action>`.                 |
+| `hooks`   | `HookCallback[]` | -           | Required. Array of callback functions to execute when the pattern matches                                                                                                                                                                                                                                                                                                                          |
+| `timeout` | `number`         | `undefined` | Timeout in seconds. When omitted, Claude Code applies the [event's default timeout](#hook-timeout): 10 minutes for most events, 30 seconds for `UserPromptSubmit`. Claude Code uses shorter limits for a few events, such as 10 seconds for `MessageDisplay` and a 1.5-second default [budget](/docs/en/hooks#sessionend-input) for `SessionEnd`. Your SDK callbacks follow the `command` hook defaults |
 
 Use the `matcher` pattern to target specific tools whenever possible. A matcher with `'Bash'` only runs for Bash commands, while omitting the pattern runs your callbacks for every occurrence of the event.
 
@@ -353,8 +354,10 @@ This example intercepts Write tool calls and rewrites the `file_path` argument t
 </CodeGroup>
 
 <Note>
-  When using `updatedInput`, you must also include `permissionDecision: 'allow'` to auto-approve the modified input or `permissionDecision: 'ask'` to show it to the user. With `'defer'`, `updatedInput` is ignored. Always return a new object rather than mutating the original `tool_input`.
+  Pair `updatedInput` with `permissionDecision: 'allow'` to auto-approve the modified input, or `permissionDecision: 'ask'` to show it to the user. If you omit `permissionDecision`, the modified input still applies and flows through the normal permission evaluation. With `'defer'`, `updatedInput` is ignored. Always return a new object rather than mutating the original `tool_input`.
 </Note>
+
+To confirm the redirect, set the prefix to a path you can write to, such as `./sandbox` or `/tmp/sandbox` (macOS doesn't allow creating a root-level `/sandbox` directory), then ask the agent to write a file: the Write tool's result in the message stream names the path with your sandbox prefix rather than the one Claude requested.
 
 ### Add context and block a tool
 
@@ -654,6 +657,8 @@ This example sends a webhook after each tool completes, logging which tool ran a
   ```
 </CodeGroup>
 
+To confirm the hook fires, point the webhook URL at an endpoint you can watch and send a prompt that uses a tool: the hook sends a POST with the tool name and timestamp after each tool completes.
+
 ### Forward notifications to Slack
 
 Use `Notification` hooks to receive system notifications from the agent and forward them to external services. Notifications fire for event types such as:
@@ -662,6 +667,8 @@ Use `Notification` hooks to receive system notifications from the agent and forw
 * `idle_prompt` when Claude is waiting for input
 * `auth_success` when authentication completes
 * `elicitation_dialog`, `elicitation_complete`, and `elicitation_response` for user-prompt elicitation flows
+
+In headless SDK sessions, only the elicitation events `elicitation_complete` and `elicitation_response` fire this hook; the other types are emitted by interactive UI that SDK sessions don't run. Permission requests, for example, go to the `canUseTool` callback instead.
 
 Each notification includes a `message` field with a human-readable description and optionally a `title`.
 
@@ -761,6 +768,8 @@ This example forwards every notification to a Slack channel. It requires a [Slac
   ```
 </CodeGroup>
 
+When a `Notification` event fires, the hook posts the notification's `message`, prefixed with `Agent status:`, to the channel your webhook targets.
+
 ## Fix common issues
 
 ### Hook not firing
@@ -822,7 +831,7 @@ If your callback needs more time, set a higher `timeout` on its `HookMatcher`. I
   };
   ```
 
-* Return `permissionDecision: 'allow'` to auto-approve the modified input, or `'ask'` to show it to the user for approval
+* Don't pair `updatedInput` with `permissionDecision: 'defer'`, which drops the modified input. Omitting `permissionDecision` is fine: the modified input still applies through the normal permission evaluation. You can also return `'allow'` to auto-approve the modified input or `'ask'` to show it to the user for approval
 
 * Include `hookEventName` in `hookSpecificOutput` to identify which hook type the output is for
 
