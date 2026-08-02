@@ -430,8 +430,8 @@
     "desktop.md": {
       "original_url": "https://code.claude.com/docs/en/desktop",
       "original_md_url": "https://code.claude.com/docs/en/desktop.md",
-      "hash": "b31772cdcd470f75ba9d0dbe1d3a5a213aa124186f98bea30d4c569dd13db1c2",
-      "last_updated": "2026-07-29T15:36:27.920403"
+      "hash": "c9de339a3046caa869f9825c20b1b83eddc84f46805ce4b5a895c5e3c2d113ba",
+      "last_updated": "2026-08-02T21:17:08.221578"
     },
     "desktop-ios-simulator.md": {
       "original_url": "https://code.claude.com/docs/en/desktop-ios-simulator",
@@ -556,8 +556,8 @@
     "headless.md": {
       "original_url": "https://code.claude.com/docs/en/headless",
       "original_md_url": "https://code.claude.com/docs/en/headless.md",
-      "hash": "c079d10a5274b750068bb842b9f5a29ee576f99669effa176fa47adb4e3ceacc",
-      "last_updated": "2026-07-29T15:36:51.836341"
+      "hash": "94bdf2c41c2cc85eaecfb0c6e03f4839a8a3121b5a020a0e0f0d7be27ec4ebaa",
+      "last_updated": "2026-08-02T21:17:24.523842"
     },
     "hooks.md": {
       "original_url": "https://code.claude.com/docs/en/hooks",
@@ -880,8 +880,8 @@
     "troubleshoot-install.md": {
       "original_url": "https://code.claude.com/docs/en/troubleshoot-install",
       "original_md_url": "https://code.claude.com/docs/en/troubleshoot-install.md",
-      "hash": "56af7a5665317524c2450118a5c2fea772547f30778141282f52b2b93095aa04",
-      "last_updated": "2026-07-28T21:24:56.117903"
+      "hash": "3398c39f1a85be2e91e0b5aa5a50a46b1bf360fe4a2f502fab47d0129129317d",
+      "last_updated": "2026-08-02T21:18:15.855293"
     },
     "troubleshooting.md": {
       "original_url": "https://code.claude.com/docs/en/troubleshooting",
@@ -1047,8 +1047,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-08-02T18:21:49.042790",
-    "fetch_duration_seconds": 309.328807,
+    "last_fetch_completed": "2026-08-02T21:18:40.981996",
+    "fetch_duration_seconds": 169.292124,
     "total_pages_discovered": 174,
     "pages_fetched_successfully": 175,
     "pages_failed": 0,
@@ -1058,7 +1058,7 @@
     "total_files": 174,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-08-02T18:21:49.042816",
+  "last_updated": "2026-08-02T21:18:40.982020",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
