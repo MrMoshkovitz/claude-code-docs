@@ -197,9 +197,39 @@ Swap `linux-x64` for `linux-arm64` if your nodes are ARM, or for `linux-x64-musl
 docker build --build-arg CLAUDE_CODE_VERSION=2.1.224 -t <your-registry>/claude-runner:latest .
 ```
 
+## Size CPU and memory for sessions
+
+Size a runner's container or host for the sessions it runs rather than for the runner process. The runner itself polls for work, prepares each session's checkout, runs your [lifecycle hooks](/docs/en/self-hosted-environments-configuration#lifecycle-hooks), and starts and supervises the session processes. The load comes from the sessions: each one is a Claude Code process plus whatever it starts, such as builds, test suites, package installs, and [MCP servers](/docs/en/mcp).
+
+For one session, start with the following values, stated as Kubernetes requests and limits or your platform's equivalent, and treat them as a starting point rather than a requirement:
+
+* **Memory**: a request and a limit of 4 GiB each, which meets the 4 GB minimum in Claude Code's [system requirements](/docs/en/setup#system-requirements). Keep the two equal so the scheduler accounts for the container's full memory. When the container reaches its memory limit, the kernel kills processes inside it, which can end a session mid-task.
+* **CPU**: a request of 2 CPUs and a limit of 4 CPUs, so a session can burst above the request during builds. The kernel throttles a container at its CPU limit rather than killing processes in it, so sessions at the limit run slower but keep running.
+
+In a Kubernetes container spec, set those starting values with the following `resources` block:
+
+```yaml theme={null}
+resources:
+  requests:
+    cpu: "2"
+    memory: 4Gi
+  limits:
+    cpu: "4"
+    memory: 4Gi
+```
+
+Builds and tests are usually the largest and most variable part of a session's load, so run a representative build of your repository, measure its peak CPU and memory, and raise any starting value that leaves no room for the Claude Code process on top of that peak.
+
+The runner uses `--capacity` to cap how many sessions it runs at once. It doesn't divide CPU or memory between them, so the sessions on a runner share the container's CPU and memory. To cap one session's share, apply limits from your [wrapper script](/docs/en/self-hosted-environments-configuration#wrapper-scripts). What to give one container therefore depends on how many sessions it serves at once:
+
+* **One session per runner**: give each container one session's values. Use this sizing at `--capacity 1`, which the [hardening section](#harden-your-deployment) recommends, and for [on-demand runners](/docs/en/self-hosted-environments-configuration#on-demand-runners), where you set the values on the workload your [`spawn-runner` hook](/docs/en/self-hosted-environments-configuration#the-spawn-runner-hook) submits, such as a Kubernetes Job's pod template.
+* **Several sessions per runner**: at a `--capacity` above one, multiply one session's values by the capacity, because up to that many sessions can run in the container at the same time. The [Kubernetes](#kubernetes) and [Docker Compose](#docker-compose) recipes run `--capacity 4` with no CPU or memory limits, so add limits sized for the capacity you run.
+
 ## Kubernetes
 
 The runner serves `GET /healthz` on port 8080 by default, configurable with `--health-port`, so Kubernetes probes work with no extra setup. The endpoint returns `200` whenever the process is alive, so the probes below detect a dead process, not a stuck one; to catch a runner that stopped polling, alert on the `last_poll_age_seconds` series from [`/metrics`](/docs/en/self-hosted-environments-reference#prometheus-metrics). The Deployment below mounts the environment secret from a Kubernetes Secret, points the liveness and readiness probes at `/healthz`, and sets a 90-second termination grace period. See [Shutdown timing](#shutdown-timing) for why the grace period matters.
+
+The manifest sets no CPU or memory `resources` on the runner container. Add a block sized for the capacity you run, as [Size CPU and memory for sessions](#size-cpu-and-memory-for-sessions) describes.
 
 ```yaml theme={null}
 apiVersion: apps/v1

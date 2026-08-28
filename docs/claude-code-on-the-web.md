@@ -21,7 +21,7 @@ This page covers the web product itself:
 * [Cloud environments](#cloud-environments): where sessions run, and where to configure that
 * [GitHub authentication options](#github-authentication-options): two ways to connect GitHub
 * [Move tasks between web and terminal](#move-tasks-between-web-and-terminal) with `--cloud` and `--teleport`
-* [Work with sessions](#work-with-sessions): reviewing, sharing, archiving, deleting
+* [Work with sessions](#work-with-sessions): permission modes, reviewing, sharing, archiving, deleting
 * [Auto-fix pull requests](#auto-fix-pull-requests): respond automatically to CI failures and review comments
 * [Security and isolation](#security-and-isolation): how sessions are isolated
 * [Limitations](#limitations): rate limits and platform restrictions
@@ -219,6 +219,10 @@ To change the auto-compact window instead, set [`CLAUDE_CODE_AUTO_COMPACT_WINDOW
 [Subagents](/docs/en/sub-agents) work the same way they do locally. Claude can spawn them with the Agent tool to offload research or parallel work into a separate context window, keeping the main conversation lighter. Subagents defined in your repo's `.claude/agents/` are picked up automatically.
 
 [Agent teams](/docs/en/agent-teams) are off by default but can be enabled by adding `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` to your [environment variables](/docs/en/cloud-environments#set-environment-variables).
+
+### Permission modes in cloud sessions
+
+You pick a cloud session's [permission mode](/docs/en/permission-modes) from the [mode dropdown](/docs/en/permission-modes#switch-permission-modes), both when you create the task and while the session runs. When you reopen a session whose Anthropic-hosted [environment expired](#environment-expired), or send a message to a session that a self-hosted runner [released while it was idle](/docs/en/self-hosted-environments-reference#runner-cli-flags), Claude Code resumes the session in the permission mode it was in.
 
 ### Review changes
 

@@ -485,13 +485,12 @@ Standard OpenTelemetry exporter variables (`OTEL_METRICS_EXPORTER`, `OTEL_LOGS_E
 
 Claude Code turns some features on through feature flags it fetches from Anthropic. You turn flag fetching off for a session by setting `DISABLE_GROWTHBOOK`, `DISABLE_TELEMETRY`, `DO_NOT_TRACK`, or `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`. Each variable's row says which values do that.
 
-Claude Code also leaves fetching off when you connect through a [Claude apps gateway](/docs/en/claude-apps-gateway). On Amazon Bedrock, Claude Platform on AWS, Google Cloud's Agent Platform, or Microsoft Foundry, Claude Code leaves fetching off unless a host platform that embeds Claude Code sets `CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST`. With fetching off, you can't:
+Claude Code also leaves fetching off when you connect through a [Claude apps gateway](/docs/en/claude-apps-gateway), and on machines where a managed settings file, MDM profile, or policy helper requires gateway sign-in with [`forceLoginMethod: "gateway"`](/docs/en/settings-reference#forceloginmethod), even before anyone signs in. On Amazon Bedrock, Claude Platform on AWS, Google Cloud's Agent Platform, or Microsoft Foundry, Claude Code leaves fetching off unless a host platform that embeds Claude Code sets `CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST`. With fetching off, you can't:
 
 * [Start sessions in auto mode by default](/docs/en/permission-modes#which-mode-a-session-starts-in) on Pro, Max, and Team plans
 * Have the VS Code extension [read settings files for the starting permission mode](/docs/en/permission-modes#switch-permission-modes)
 * Run [`/auto-mode-setup`](/docs/en/auto-mode-config#generate-environment-entries) to draft `autoMode.environment` entries
 * Use [Remote Control](/docs/en/remote-control#requirements)
-* Send or receive [cross-session messages](/docs/en/cross-session-messaging#availability)
 * Run [`claude import` or the `/import` command](/docs/en/cli-reference#cli-commands)
 * Create routines from the CLI with [`/schedule`](/docs/en/routines#troubleshooting)
 * Use [the advisor tool](/docs/en/advisor#requirements)

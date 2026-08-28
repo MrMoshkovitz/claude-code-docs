@@ -432,6 +432,8 @@ When a request fails over, Claude Code tries each entry in order until one accep
 * **Outside the allowlist**: Claude Code drops any entry not permitted by [`availableModels`](#restrict-model-selection) when it reads the chain.
 * **Smaller context window during compaction**: the chain also covers [compaction](/docs/en/context-window#what-survives-compaction), but Claude Code won't fall back to a model with a smaller context window than the primary's, since summarizing there would cut off part of the conversation first. If every fallback is smaller, compaction shows the original error and you can retry.
 
+Claude Code also applies the chain to [subagents](/docs/en/sub-agents). When a subagent's request fails over, Claude Code tries your configured fallback models in order, and the subagent continues on the model that accepts the request. Your session's model is unchanged. Before v2.1.247, a failure the chain covers ended the subagent instead.
+
 ### Automatic model fallback
 
 This section covers content-based fallback from Fable 5 and Opus 5. For availability-based fallback when a model is overloaded or unavailable, see [Fallback model chains](#fallback-model-chains).

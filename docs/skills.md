@@ -229,7 +229,7 @@ In any other session on your machine, Claude Code loads them only after you down
   </Step>
 
   <Step title="Confirm the skills load in a local session">
-    Start an interactive session, without `CLAUDE_CODE_SYNC_SKILLS` set, and run `/skills`. The menu lists the downloaded skills under `claude.ai sync`. Every local session you start afterwards loads them from `~/.claude/skills/synced/` too.
+    Start an interactive session, without `CLAUDE_CODE_SYNC_SKILLS` set, and run `/skills`. The menu lists the downloaded skills under `claude.ai sync`. Every local session you start afterwards with the same claude.ai sign-in loads them from `~/.claude/skills/synced/` too.
   </Step>
 </Steps>
 

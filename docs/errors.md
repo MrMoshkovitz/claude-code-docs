@@ -173,6 +173,8 @@ Match the message you see to a section below.
 | `Too many messages to this session just now`                                                                                                                                                  | [Tool errors](#too-many-messages-to-this-session-just-now)                                                                    |
 | `Refusing to send: reply target is a symlink` / `Refusing to send: cannot vet reply target`                                                                                                   | [Tool errors](#refusing-to-send-a-cross-session-message)                                                                      |
 | `Refusing to send: connected endpoint is not the expected process` / `Refusing to send: connected endpoint identity could not be read`                                                        | [Tool errors](#refusing-to-send-a-cross-session-message)                                                                      |
+| `Refusing to send: connected endpoint is not owned by this user` / `Refusing to send: connected endpoint owner could not be read`                                                             | [Tool errors](#refusing-to-send-a-cross-session-message)                                                                      |
+| `Refusing to send: connected endpoint is a different process with the expected pid`                                                                                                           | [Tool errors](#refusing-to-send-a-cross-session-message)                                                                      |
 | `Can't open MCP settings while no terminal is attached to this background session`                                                                                                            | [Background session errors](#commands-refused-in-a-background-session)                                                        |
 | `Can't open MCP settings in a background session`                                                                                                                                             | [Background session errors](#commands-refused-in-a-background-session)                                                        |
 | `blocked because the path is spelled in a form that cannot be safely resolved`                                                                                                                | [Background session errors](#write-or-command-blocked-because-the-path-cannot-be-safely-resolved)                             |
@@ -200,6 +202,7 @@ Match the message you see to a section below.
 | `Claude Code exited after an unrecoverable interface error (...)`                                                                                                                             | [Configuration warnings](#exited-after-an-unrecoverable-interface-error)                                                      |
 | `Agent descriptions are over the 15.0k-token limit`                                                                                                                                           | [Configuration warnings](#agent-descriptions-are-over-the-15000-token-limit)                                                  |
 | `Ignoring N permissions.allow entries from ... this workspace has not been trusted`                                                                                                           | [Configuration warnings](#workspace-has-not-been-trusted)                                                                     |
+| `"crossSessionInbound" must be one of "accept", "hold", "refuse"`                                                                                                                             | [Configuration warnings](#crosssessioninbound-must-be-one-of-accept-hold-refuse)                                              |
 | `headersHelper not run — this workspace has no persisted trust`                                                                                                                               | [Configuration warnings](#headershelper-not-run)                                                                              |
 | `... is not matched by file permission checks`                                                                                                                                                | [Configuration warnings](#is-not-matched-by-file-permission-checks)                                                           |
 | `... has a wildcard before the rest of the command`                                                                                                                                           | [Configuration warnings](#has-a-wildcard-before-the-rest-of-the-command)                                                      |
@@ -1115,10 +1118,13 @@ A proxy is configured via HTTPS_PROXY. Check that it allows connections to the h
 
 Claude Code sends the check through the same [proxy configuration](/docs/en/network-config) as API requests and gives each probe 10 seconds. When the failed probe went through a proxy, the message names the environment variable that configured it, such as `HTTPS_PROXY`. Before v2.1.222, the check used a different proxy transport with no timeout: behind a proxy URL with the `https://` scheme, it could stall on `Checking connectivity...` indefinitely and then fail even though API requests through the same proxy succeed.
 
+Claude Code skips this check when a [managed settings file, MDM policy, or policy helper](/docs/en/managed-settings) sets [`forceLoginMethod`](/docs/en/settings-reference#forceloginmethod) to `"gateway"`, or sets [`forceLoginGatewayUrl`](/docs/en/settings-reference#forcelogingatewayurl) without `forceLoginMethod`. With either configuration, Claude Code opens the sign-in step on the **Cloud gateway** screen rather than an Anthropic sign-in method. Claude Code also skips the check when a managed settings source on the machine exists but can't be read, since that source may hold the gateway configuration. Before v2.1.247, Claude Code ran the check under this configuration too, and exited with this error when Anthropic's endpoints were unreachable.
+
 **What to do:**
 
 * If the message names a proxy variable, check that its value points at the right proxy and ask your network team to allow HTTPS connections through it to the host in the message. See [Network configuration](/docs/en/network-config).
 * Work through the checks in [Unable to connect to API](#unable-to-connect-to-api). The `curl` test and firewall guidance there apply to this check too.
+* If your organization signs in through a [cloud gateway](/docs/en/claude-apps-gateway) and this error appears on first run, update to Claude Code v2.1.247 or later.
 * If your network is open and the failure persists, Claude Code may not be [available in your country](https://www.anthropic.com/supported-countries)
 
 ### Socket is closed
@@ -2436,6 +2442,9 @@ The text after `Refusing to send:` names the check that failed:
 * `cannot vet reply target`: Claude Code couldn't inspect the target path at all, for example because reading it failed with a permission error.
 * `connected endpoint is not the expected process`: the process holding the socket isn't the session the message was addressed to, so the address is stale or another process replaced the socket.
 * `connected endpoint identity could not be read`: Claude Code connected but couldn't read which process holds the other end, so it couldn't confirm the target. This can be transient.
+* `connected endpoint is not owned by this user`: the process holding the socket runs as a different user account, so it isn't one of your sessions.
+* `connected endpoint owner could not be read`: Claude Code connected but couldn't read which user account owns the other end, so it couldn't confirm the endpoint is yours.
+* `connected endpoint is a different process with the expected pid`: the process id matches the one the message was addressed to, but Claude Code couldn't confirm it's the same process. Usually that session exited and the operating system reused its process id, so the address is stale.
 
 **What to do:**
 
@@ -2443,6 +2452,9 @@ The text after `Refusing to send:` names the check that failed:
 * Ask Claude to list your sessions again and resend; a refusal caused by a stale address clears once Claude sends to the current one
 * If `reply target is a symlink` repeats for one session, check what created a link at that session's socket path, shown in its `/status` under `Peer address`
 * For `connected endpoint identity could not be read`, resend; the condition can be transient
+* If `connected endpoint is not owned by this user` appears on a shared machine, the session at that address runs under another user's account, so Claude can't message it from yours
+
+Before v2.1.248, Claude Code didn't check the endpoint's owning user or process start time, so the refusals that name those checks don't appear on earlier versions.
 
 ## Background session errors
 
@@ -2547,7 +2559,7 @@ This session's saved conversation is no longer on disk (it ended while the backg
 
 **What to do:**
 
-* Run `claude rm <id>` to delete the row
+* Run `claude rm <id>` to delete the row. When one of the [kept cases](/docs/en/agent-view#what-deleting-a-session-removes) applies, `claude rm` keeps the row and the worktree instead and names the reason
 * To run the session's original prompt again as a fresh conversation, run `claude respawn <id>`
 
 Before v2.1.248, opening such a row re-ran the session's original prompt instead of refusing, pulling a weeks-old task back into the foreground.
@@ -2571,7 +2583,7 @@ Commits on a remote don't block the delete. Neither do commits on the local copy
 **What to do:**
 
 * Push the worktree's branch, or merge it into the default branch checked out in your main checkout, then delete the session again
-* To discard the commits instead, remove the worktree yourself with `git worktree remove --force <path>`, using the path the message names, then run `claude rm <id>` again. See [Clean up subagent and background-session worktrees](/docs/en/worktrees#clean-up-subagent-and-background-session-worktrees).
+* To delete the session without pushing or merging the commits, first note the branch that `git worktree list` shows for the path the message names. Remove the worktree yourself with `git worktree remove --force <path>`, as described in [Clean up subagent and background-session worktrees](/docs/en/worktrees#clean-up-subagent-and-background-session-worktrees), then run `claude rm <id>` again. Neither step deletes that branch, so the commits stay on it until you run `git branch -D <branch>`.
 
 Before v2.1.248, the default branch checked out in your main checkout didn't count: a branch you had already merged there still triggered this refusal until its commits reached a remote.
 
@@ -2986,6 +2998,25 @@ Permission allow rule (.claude/settings.json): Bash(git -C * status *) has a wil
 Claude Code doesn't warn about deny and ask rules with the same shape: it refuses or prompts for the extra commands they match rather than approving them. It also doesn't warn about rules whose subcommand comes before the first `*`, such as `Bash(git commit *)`, or rules in which no word other than an option follows the `*`, such as `Bash(git *)`, or about `:*` prefix rules such as `Bash(git:*)`.
 
 In a [background session](/docs/en/agent-view) or with `--output-format json` or `stream-json`, Claude Code writes the warning to the debug log instead of stderr, so machine-read output stays clean. Run with `--debug` to capture it at `~/.claude/debug/<session-id>.txt`. Before v2.1.246, Claude Code accepted these rules without a warning.
+
+<h3 id="crosssessioninbound-must-be-one-of-accept-hold-refuse">
+  crossSessionInbound must be one of accept, hold, refuse
+</h3>
+
+A settings file sets [`crossSessionInbound`](/docs/en/settings-reference#crosssessioninbound) to a value Claude Code doesn't recognize, such as the typo `"reject"`. The warning's second sentence depends on which file holds the value; in a user, project, local, or `--settings` file it reads:
+
+```text theme={null}
+"crossSessionInbound" must be one of "accept", "hold", "refuse"; received "reject". This value was ignored; while it is present, cross-session messages are held for your approval instead of being delivered. Set it to one of the values above.
+```
+
+In [managed settings](/docs/en/managed-settings), Claude Code treats the unrecognized value as `refuse`, the most restrictive value, and the warning says cross-session messages are turned away until an administrator fixes it. For how the hold combines with values in your other settings files, see [`crossSessionInbound`](/docs/en/settings-reference#crosssessioninbound).
+
+**What to do:**
+
+* Set the key to `"accept"`, `"hold"`, or `"refuse"`, or remove it
+* When the warning names managed settings, ask the administrator to fix the value
+
+Before v2.1.248, Claude Code ignored an unrecognized value without warning.
 
 <h3 id="the-200k-limit-isnt-enforced">
   The 200K limit isn't enforced
