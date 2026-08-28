@@ -539,7 +539,7 @@ Once the answer appears, the overlay accepts these keys.
 | `f`                        | Start a [forked subagent](/docs/en/sub-agents#fork-the-current-conversation) that inherits the parent conversation plus this question and answer, so it can continue with full tool access. You stay in the current session and find the fork in the [panel below your prompt](/docs/en/sub-agents#observe-and-steer-running-forks). Available in local sessions only |
 | `x`                        | Clear the list of earlier `/btw` exchanges shown above the current answer                                                                                                                                                                                                                                                                                   |
 
-`/btw` is the inverse of a [subagent](/docs/en/sub-agents): it sees your full conversation but has no tools. Use `/btw` to ask about what Claude already knows from this session; use a subagent to go find out something new.
+`/btw` sees your full conversation but has no tools. A [subagent](/docs/en/sub-agents) has tools and starts from the prompt it receives, or, for a [fork](/docs/en/sub-agents#fork-the-current-conversation), from a copy of this conversation. Use `/btw` to ask about what Claude already knows from this session; use a subagent to go find out something new.
 
 ## Task list
 
