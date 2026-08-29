@@ -323,6 +323,8 @@ The workflow runtime executes the script in an isolated environment, separate fr
 
 Every run writes its script to a file under your session's directory in `~/.claude/projects/`. Claude receives the path when the run starts, so you can ask for it. You can open that file to read the orchestration Claude wrote, diff it against a previous run's script, or edit it and ask Claude to relaunch from the edited version.
 
+Claude can start a workflow only from a script file the session is already allowed to read. To run a script kept outside your working directory, add its directory with [`/add-dir`](/docs/en/permissions#working-directories) or a [Read allow rule](/docs/en/permissions#read-and-edit) first.
+
 The runtime tracks each agent's result as the run progresses, which is what makes a run [resumable](#resume-after-a-pause) within the same session.
 
 ### Prompt caching in a fan-out
