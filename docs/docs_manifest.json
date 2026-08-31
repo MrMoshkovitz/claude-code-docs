@@ -1149,8 +1149,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-08-31T06:07:32.323743",
-    "fetch_duration_seconds": 172.422223,
+    "last_fetch_completed": "2026-08-31T09:06:15.293120",
+    "fetch_duration_seconds": 181.036953,
     "total_pages_discovered": 191,
     "pages_fetched_successfully": 192,
     "pages_failed": 0,
@@ -1160,7 +1160,7 @@
     "total_files": 191,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-08-31T06:07:32.323769",
+  "last_updated": "2026-08-31T09:06:15.293149",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
