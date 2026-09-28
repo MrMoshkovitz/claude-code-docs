@@ -388,8 +388,8 @@
     "commands.md": {
       "original_url": "https://code.claude.com/docs/en/commands",
       "original_md_url": "https://code.claude.com/docs/en/commands.md",
-      "hash": "a6d7b249e636079f337d29ad35f97bef856a797ba9ff0db9cfb9d43c85f520c3",
-      "last_updated": "2026-09-25T02:15:22.479483"
+      "hash": "f0b71855bab62002c1bf410afc7d0e41b825ba8b3b6b8fa13da6fa142f6b8098",
+      "last_updated": "2026-09-28T00:07:27.655524"
     },
     "common-workflows.md": {
       "original_url": "https://code.claude.com/docs/en/common-workflows",
@@ -502,8 +502,8 @@
     "errors.md": {
       "original_url": "https://code.claude.com/docs/en/errors",
       "original_md_url": "https://code.claude.com/docs/en/errors.md",
-      "hash": "cacd5dfa52268a425aa1a6d968ae34e3d30a44b68b273770b6d09a006666c5fd",
-      "last_updated": "2026-09-27T18:45:22.070878"
+      "hash": "93f92a1029808a357f9363494ebd78e0239c961533fbf4553dc39a82b018e392",
+      "last_updated": "2026-09-28T00:07:40.363950"
     },
     "fast-mode.md": {
       "original_url": "https://code.claude.com/docs/en/fast-mode",
@@ -664,8 +664,8 @@
     "managed-settings.md": {
       "original_url": "https://code.claude.com/docs/en/managed-settings",
       "original_md_url": "https://code.claude.com/docs/en/managed-settings.md",
-      "hash": "28791be961c30f6efa6b2fb949ee3fe6742808577ec4b4e3cfaac482f412e05c",
-      "last_updated": "2026-09-26T02:21:21.949938"
+      "hash": "742373f414247358a26a4ba75bfe5e038ebf7e64198144fac76950ee7c964bb6",
+      "last_updated": "2026-09-28T00:08:04.664784"
     },
     "mcp.md": {
       "original_url": "https://code.claude.com/docs/en/mcp",
@@ -682,8 +682,8 @@
     "memory.md": {
       "original_url": "https://code.claude.com/docs/en/memory",
       "original_md_url": "https://code.claude.com/docs/en/memory.md",
-      "hash": "211356a949f98a2005ccc5ca66d5366cffeae5849d3df7cdddd51c61d9455cea",
-      "last_updated": "2026-09-26T02:21:23.676051"
+      "hash": "a6a8bf47d11e8f65e7e8e29506db31b0a546a0b9a05515b7fb95765207d892a9",
+      "last_updated": "2026-09-28T00:08:06.760087"
     },
     "microsoft-foundry.md": {
       "original_url": "https://code.claude.com/docs/en/microsoft-foundry",
@@ -730,14 +730,14 @@
     "permission-modes.md": {
       "original_url": "https://code.claude.com/docs/en/permission-modes",
       "original_md_url": "https://code.claude.com/docs/en/permission-modes.md",
-      "hash": "abc2321992feedcd9f3ff6b7bc7f043ad2ca0eed3bd79e15b34ceac945354a4c",
-      "last_updated": "2026-09-26T08:05:00.804507"
+      "hash": "796611b433bd4cfc2dcf5a470c743512da0b8d385a51642e06f3cd9d89bfd3d6",
+      "last_updated": "2026-09-28T00:08:12.960286"
     },
     "permissions.md": {
       "original_url": "https://code.claude.com/docs/en/permissions",
       "original_md_url": "https://code.claude.com/docs/en/permissions.md",
-      "hash": "4ae33c19c939861b62b0d0bc1d525a9299a1e633ab2eea6df0a55124cb400f47",
-      "last_updated": "2026-09-25T23:41:15.436506"
+      "hash": "fe2a7b6e720f51c0f18c9752f03871f995654377c0c6059e560f1136dc3919bd",
+      "last_updated": "2026-09-28T00:08:13.617349"
     },
     "platforms.md": {
       "original_url": "https://code.claude.com/docs/en/platforms",
@@ -1257,8 +1257,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-09-27T21:04:15.369351",
-    "fetch_duration_seconds": 139.556791,
+    "last_fetch_completed": "2026-09-28T00:09:20.474899",
+    "fetch_duration_seconds": 163.585004,
     "total_pages_discovered": 209,
     "pages_fetched_successfully": 210,
     "pages_failed": 0,
@@ -1268,7 +1268,7 @@
     "total_files": 209,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-09-27T21:04:15.369379",
+  "last_updated": "2026-09-28T00:09:20.474921",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
