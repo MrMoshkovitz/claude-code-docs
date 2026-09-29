@@ -150,6 +150,8 @@ Whichever mechanism you configure must work without a prompt, because the runner
 
 If your git host rejects the credential, or you didn't configure one, the runner retries a few times and then fails repository preparation when the repository is the one the session pushes results to. For a repository the session only reads from, [Troubleshooting](#troubleshooting) covers when the runner skips it instead. The runner doesn't pass these settings into the session's environment.
 
+Keep any program you name in `GIT_SSH_COMMAND` or `GIT_ASKPASS` where sessions can't write to it, the way the [hardening checklist](#harden-your-deployment) asks for the hooks directory and the wrapper script. The same goes for any key or file on that program's command line. The runner's own git runs that program when it clones or fetches.
+
 If checkout directories are owned by a different uid than the runner process, git refuses to operate on them; add `safe.directory`:
 
 ```dockerfile theme={null}
@@ -163,6 +165,31 @@ Start the runner with `--use-anthropic-git-proxy`, or set `CLAUDE_RUNNER_USE_GIT
 The proxy requires `--capacity 1` because the proxy URL is per-session, and git 2.32 or later because older git ignores the configuration mechanism the proxy uses to isolate sessions from each other. The runner refuses to start if either requirement is unmet. Because the proxy fetches from Anthropic's side, your git host must be reachable from Anthropic infrastructure, the same requirement Anthropic-hosted sessions have; for a git host that's only routable inside your network, use a [`checkout` lifecycle hook](/docs/en/self-hosted-environments-configuration#checkout) instead. Each runner process handles one session at a time, so run more replicas for parallelism. When the proxy is enabled, `--git-host-rewrite` and `--git-ssh-rewrite` have no effect: the proxy URL points at `api.anthropic.com`, not your git host.
 
 The runner also reports the opt-in to Anthropic when it registers, printing `Registering as opted in to Anthropic-managed git (--use-anthropic-git-proxy)` at startup. Reporting the opt-in requires Claude Code v2.1.267 or later, and earlier versions accept the flag without reporting it or printing that line. Each session on an opted-in runner then uses either Anthropic-managed git or the per-session proxy URL. When a session uses the per-session proxy URL, the runner logs one `[runner:warn]` line saying so.
+
+#### Trust a private certificate authority with Anthropic-managed git
+
+This section applies if you set `GIT_SSL_CAINFO` or `GIT_SSL_NO_VERIFY` in the environment of a runner whose sessions use Anthropic-managed git. The handling it describes requires the runner to run Claude Code v2.1.283 or later.
+
+When git on the runner must trust a private certificate authority (CA), such as the one a TLS-inspecting proxy signs with, the usual approaches work out as follows:
+
+* **System certificate store**: install your CA in the runner host's system certificate store, and git trusts it without either variable.
+* **`GIT_SSL_CAINFO`**: set it to a PEM file of your CAs, for example `GIT_SSL_CAINFO=/etc/ssl/corp-ca.pem`.
+* **`GIT_SSL_NO_VERIFY`**: doesn't help behind a re-signing proxy. The runner's own clone through Anthropic-managed git checks certificates even when the variable is set, so that clone fails until git trusts your CA through one of the other two approaches.
+
+For git connections that carry a session's token to Anthropic-managed git, the runner applies the two variables as follows. A [`command` hook](/docs/en/self-hosted-environments-configuration#command) starts with the session's environment, so it gets what git inside the session gets:
+
+* **`GIT_SSL_CAINFO`**: what git checks Anthropic-managed git against depends on where git runs:
+  * **Runner's own clone and fetches**: run without the variable and check Anthropic-managed git against a per-session certificate file the runner writes. That file holds the runner host's system CA bundle plus the certificates from your file.
+  * **Git inside the session**: gets `http.sslCAInfo` configuration naming your file in place of the variable, plus `http.<url>.sslCAInfo` entries that check Anthropic-managed git against the per-session file.
+  * **`checkout` and `post-session` hooks**: inherit the variable unchanged.
+* **`GIT_SSL_NO_VERIFY`**: which certificate checks stay off depends on where git runs:
+  * **Runner's own clone and fetches**: run without the variable and check the certificate they're presented.
+  * **Git inside the session**: gets `http.sslVerify=false` configuration in place of the variable, so checks stay off for other hosts. It also gets `http.<url>.sslVerify=true` entries that keep checks on for Anthropic-managed git.
+  * **`checkout` and `post-session` hooks**: when the session has a repository on Anthropic-managed git, get `http.sslVerify=false` configuration in place of the variable. They also get `http.<url>.sslVerify=true` entries that keep checks on for Anthropic-managed git.
+
+The per-session certificate file needs a system CA bundle at `/etc/ssl/certs/ca-certificates.crt` or `/etc/pki/tls/certs/ca-bundle.crt` on the runner host. It also needs a `GIT_SSL_CAINFO` file that the runner's user can read, that holds PEM `CERTIFICATE` blocks, and that is at most 1 MiB. When the runner can't build the per-session file, it logs a `[runner:warn]` line containing `did not build the certificate file` and the reason. Git then uses your file as it is for Anthropic-managed git. Fix what the line names.
+
+For each session that uses Anthropic-managed git, the runner also logs a `[runner:warn]` line that begins `governed git: GIT_SSL_CAINFO is set` or `governed git: GIT_SSL_NO_VERIFY is set`. The line says what the runner did with that variable for its own git, for git inside the session, and for your lifecycle hooks. It ends with whether you need to change anything.
 
 ### Rewrite git URLs for private networks
 
