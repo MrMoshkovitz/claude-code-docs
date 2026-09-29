@@ -628,13 +628,16 @@ scope: "Which settings files can set the key: user (~/.claude/settings.json), pr
 | [`blockedMarketplaces`](#blockedmarketplaces) | Block [plugin marketplace](/docs/en/plugins/overview) sources for your organization | Plugins and skills | Managed |
 | [`browserExternalPageTools`](#browserexternalpagetools) | Keep Claude's tools off external pages in the [desktop](/docs/en/desktop) Browser pane | Tools | Managed |
 | [`channelsEnabled`](#channelsenabled) | Allow [channels](/docs/en/channels#enable-channels-for-your-organization) for your organization | Plugins and skills | Managed |
+| [`claudeInChromeDefaultEnabled`](#claudeinchromedefaultenabled) | Turn on [Chrome integration](/docs/en/chrome) in every interactive CLI session without passing `--chrome` | Global config settings | Global config |
 | [`claudeMd`](#claudemd) | Inject organization-wide [CLAUDE.md](/docs/en/memory#deploy-organization-wide-claude-md) instructions from managed settings | Memory and context | Managed |
 | [`claudeMdExcludes`](#claudemdexcludes) | Skip specific [CLAUDE.md](/docs/en/memory#exclude-specific-claude-md-files) files when memory loads | Memory and context | Any file |
 | [`cleanupPeriodDays`](#cleanupperioddays) | Choose how many days Claude Code keeps [transcripts](/docs/en/data-usage#data-retention) before deleting them | Privacy and telemetry | Any file |
 | [`companyAnnouncements`](#companyannouncements) | Show your organization's announcements at startup | Interface and terminal | Any file |
+| [`copyFullResponse`](#copyfullresponse) | Make [`/copy`](/docs/en/commands) copy the full response without showing the code block picker | Global config settings | Global config |
 | [`copyOnSelect`](#copyonselect) | Turn off automatic copying of text you select with the mouse in [fullscreen rendering](/docs/en/fullscreen#use-the-mouse) and agent view | Global config settings | Global config |
 | [`crossSessionInbound`](#crosssessioninbound) | Choose whether Claude Code delivers [messages from your other sessions](/docs/en/cross-session-messaging#control-inbound-messages), shows a notice without delivering them, or refuses them | Agents, sessions, and worktrees | Any file |
 | [`defaultShell`](#defaultshell) | Choose whether Bash or PowerShell runs the shell commands you type with the [`!` prefix](/docs/en/interactive-mode#shell-mode-with-prefix) | Interface and terminal | Any file |
+| [`defaultToAgentsView`](#defaulttoagentsview) | Open [agent view](/docs/en/agent-view) instead of a new conversation when you run `claude` with no arguments | Global config settings | Global config |
 | [`deniedMcpServers`](#deniedmcpservers) | Block specific [MCP servers](/docs/en/mcp) by URL, command, or name | MCP | Any file |
 | [`deniedModels`](#deniedmodels) | [Block specific models](/docs/en/model-config#block-specific-models-or-versions), even ones `availableModels` permits | Model and responses | Managed |
 | [`desktopSessionCleanupPeriodDays`](#desktopsessioncleanupperioddays) | Set an age limit in days for [Claude Desktop and Cowork transcripts](/docs/en/claude-directory#cleaned-up-automatically) | Privacy and telemetry | User or managed |
@@ -690,6 +693,7 @@ scope: "Which settings files can set the key: user (~/.claude/settings.json), pr
 | [`isolatePeerMachines`](#isolatepeermachines) | Ask you before Claude [messages one of your sessions on another machine](/docs/en/cross-session-messaging#require-approval-for-cross-machine-messages) | Agents, sessions, and worktrees | Any file |
 | [`keybindingFlavor`](#keybindingflavor) | Deprecated and has no effect; the word-editing shortcuts always [follow readline conventions](/docs/en/interactive-mode#make-ctrl-w-delete-back-to-whitespace) | Interface and terminal | Any file |
 | [`language`](#language) | Have Claude respond in a language other than English | Model and responses | Any file |
+| [`leftArrowOpensAgents`](#leftarrowopensagents) | Turn off the `←` shortcut that [backgrounds the session and opens agent view](/docs/en/agent-view#switch-sessions-without-leaving-the-terminal) | Global config settings | Global config |
 | [`managedMcpServers`](#managedmcpservers) | Provide remote [MCP servers](/docs/en/managed-mcp#provide-servers-through-managed-settings) to every user alongside the ones they add | MCP | Managed |
 | [`managedSourcesBehavior`](#managedsourcesbehavior) | Compose every [managed source](/docs/en/managed-settings#how-claude-code-combines-managed-sources) you deploy instead of using the highest-priority one alone | Enterprise and managed settings | Managed |
 | [`maxEffortLevel`](#maxeffortlevel) | Cap the [effort level](/docs/en/model-config#adjust-effort-level) for every model or per model, on every provider | Model and responses | Any file |
@@ -725,6 +729,7 @@ scope: "Which settings files can set the key: user (~/.claude/settings.json), pr
 | [`processWrapper`](#processwrapper) | Run Claude Code's background processes through a [corporate launcher](/docs/en/corporate-launcher) on macOS and Linux | Agents, sessions, and worktrees | User or managed |
 | [`promptCacheTtl`](#promptcachettl) | Choose the [prompt cache lifetime](/docs/en/prompt-caching#cache-lifetime) for the main conversation | Model and responses | Any file |
 | [`promptSuggestionEnabled`](#promptsuggestionenabled) | Hide the grayed-out [prompt suggestions](/docs/en/interactive-mode#prompt-suggestions) in the input box | Interface and terminal | Any file |
+| [`prStatusFooterEnabled`](#prstatusfooterenabled) | Turn off the prompt footer's [PR review status](/docs/en/interactive-mode#pr-review-status) badge and the pull request check behind it | Global config settings | Global config |
 | [`prUrlTemplate`](#prurltemplate) | Point PR links at an internal code-review tool instead of github.com | Git and attribution | Any file |
 | [`remote.defaultEnvironmentId`](#remote-defaultenvironmentid) | Pick the default [cloud environment](/docs/en/cloud-environments) for `claude --cloud`; a self-hosted `ccpool_` ID is read only from user and managed settings and `--settings` | Remote, desktop, and notifications | Any file |
 | [`remoteControlAtStartup`](#remotecontrolatstartup) | Connect [Remote Control](/docs/en/remote-control#enable-remote-control-for-all-sessions) automatically when a session starts | Remote, desktop, and notifications | Any file |
@@ -5661,7 +5666,7 @@ Control how long Claude Code keeps session data and what it sends. The switches 
 
 ### `cleanupPeriodDays`
 
-Set how many days Claude Code keeps [session transcripts and other application data](/docs/en/claude-directory#cleaned-up-automatically) before deleting them. Claude Code runs the deletion as a background sweep after a session starts, as long as it can safely determine the retention period.
+Set how many days Claude Code keeps [session transcripts and other application data](/docs/en/claude-directory#cleaned-up-automatically) before deleting them. Claude Code runs the deletion as a background sweep after a session starts, as long as it can safely determine the retention period. The sweep deletes transcripts without showing a message, so a session you haven't used for longer than the retention period no longer appears in the [`/resume`](/docs/en/sessions#resume-a-session) picker.
 
 * **Scope**: [`Any file`](#scopes)
 * **Type**: number of days, a whole number, minimum `1`
@@ -6033,6 +6038,43 @@ Install the Claude Code IDE extension automatically when you run Claude Code fro
 
 Claude Code ignores this key in `settings.json`.
 
+### `claudeInChromeDefaultEnabled`
+
+Start every interactive CLI session with [Chrome integration](/docs/en/chrome) on, without passing `--chrome` each time. If you run [`claude remote-control`](/docs/en/remote-control), a session it starts for one of your [project](/docs/en/claude-projects) threads follows this key too, except in `bypassPermissions` mode. Running `/chrome` and selecting **Enabled by default** sets this key for you, as described in [Enable Chrome by default](/docs/en/chrome#enable-chrome-by-default). Appears in `/config` as **Claude in Chrome enabled by default**.
+
+* **Scope**: [`Global config`](#scopes)
+* **Type**: Boolean
+  * `true`: Claude Code turns on Chrome integration when an interactive CLI session starts, as it does when you pass `--chrome`
+  * `false`: interactive CLI sessions start with Chrome integration off, and Claude Code stops [offering to set it up](/docs/en/chrome#install-the-extension-when-claude-asks). Pass `--chrome` to turn it on for one interactive session
+* **Default**: unset, so Chrome integration is off and Claude Code can still offer to set it up
+* **Per-session overrides**: `--chrome` and [`--no-chrome`](/docs/en/cli-reference) take precedence over this key for one interactive session
+
+```json ~/.claude.json theme={null}
+{
+  "claudeInChromeDefaultEnabled": true
+}
+```
+
+Claude Code ignores this key in `settings.json`.
+
+### `copyFullResponse`
+
+Make [`/copy`](/docs/en/commands) copy the full response every time, without the picker it otherwise shows when the response contains code blocks. Selecting **Always copy full response** in that picker sets this key to `true`. Appears in `/config` as **Skip the /copy picker**.
+
+* **Scope**: [`Global config`](#scopes)
+* **Type**: Boolean
+  * `true`: `/copy` copies the full response without showing the picker
+  * `false`: when the response contains code blocks, `/copy` shows a picker where you choose one code block or the full response
+* **Default**: `false`
+
+```json ~/.claude.json theme={null}
+{
+  "copyFullResponse": true
+}
+```
+
+Claude Code ignores this key in `settings.json`.
+
 ### `copyOnSelect`
 
 Copy text to your clipboard automatically when you finish selecting it with the mouse in [fullscreen rendering](/docs/en/fullscreen#use-the-mouse) or [agent view](/docs/en/agent-view). Appears in `/config` as **Copy on select** while fullscreen rendering is on.
@@ -6046,6 +6088,24 @@ Copy text to your clipboard automatically when you finish selecting it with the 
 ```json ~/.claude.json theme={null}
 {
   "copyOnSelect": false
+}
+```
+
+Claude Code ignores this key in `settings.json`.
+
+### `defaultToAgentsView`
+
+Open [agent view](/docs/en/agent-view) instead of a new conversation when you run `claude` with no arguments. Appears in `/config` as **Open agents view by default** unless agent view is [turned off](#disableagentview).
+
+* **Scope**: [`Global config`](#scopes)
+* **Type**: Boolean
+  * `true`: `claude` with no arguments opens agent view, unless agent view is [turned off](#disableagentview)
+  * `false`: `claude` with no arguments starts a new conversation
+* **Default**: `false`
+
+```json ~/.claude.json theme={null}
+{
+  "defaultToAgentsView": true
 }
 ```
 
@@ -6101,6 +6161,24 @@ Claude Code keeps the last 50 lines of the response and marks the cut with `# �
 
 Claude Code ignores this key in `settings.json`.
 
+### `leftArrowOpensAgents`
+
+Press `←` on an empty prompt to [background the session and open agent view](/docs/en/agent-view#switch-sessions-without-leaving-the-terminal). Set this key to `false` to turn the shortcut off. Appears in `/config` as **← opens agents** when agent view is available.
+
+* **Scope**: [`Global config`](#scopes)
+* **Type**: Boolean
+  * `true`: pressing `←` on an empty prompt in a session you started in the terminal backgrounds it and opens agent view
+  * `false`: Claude Code turns the shortcut off; in a session you [attached to from agent view](/docs/en/agent-view#attach-to-a-session), `←` on an empty prompt still detaches
+* **Default**: `true`
+
+```json ~/.claude.json theme={null}
+{
+  "leftArrowOpensAgents": false
+}
+```
+
+Claude Code ignores this key in `settings.json`.
+
 ### `permissionExplainerEnabled`
 
 <Warning>
@@ -6112,6 +6190,24 @@ Through v2.1.256, you could press `Ctrl+E` on a Bash or PowerShell permission pr
 * **Scope**: [`Global config`](#scopes). On v2.1.256 and earlier.
 * **Type**: Boolean
 * **Default**: `true`
+
+### `prStatusFooterEnabled`
+
+Show a badge in the prompt footer for the current branch's open pull request or merge request, with a colored underline that shows its [status](/docs/en/interactive-mode#pr-review-status). Appears in `/config` as **Show PR status footer**.
+
+* **Scope**: [`Global config`](#scopes)
+* **Type**: Boolean
+  * `true`: the footer shows the badge under the conditions in [PR review status](/docs/en/interactive-mode#pr-review-status)
+  * `false`: Claude Code skips the footer's pull request and merge request check and doesn't show that badge. A session you [attached to from agent view](/docs/en/agent-view#attach-to-a-session) can still show a plain link to a pull request [linked to it](/docs/en/agent-view#pull-request-status)
+* **Default**: `true`
+
+```json ~/.claude.json theme={null}
+{
+  "prStatusFooterEnabled": false
+}
+```
+
+Claude Code ignores this key in `settings.json`.
 
 ### `teammateDefaultModel`
 

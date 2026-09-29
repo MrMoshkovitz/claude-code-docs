@@ -259,7 +259,7 @@ For more on tracking and reducing usage, see [Track your costs](/docs/en/costs#t
 
 ## Customize your workflow
 
-You can reposition the Claude panel, run multiple conversations, organize the sessions list into groups, or switch to terminal mode.
+You can reposition the Claude panel, run multiple conversations, group or filter the sessions list, or switch to terminal mode.
 
 ### Choose where Claude lives
 
@@ -302,6 +302,15 @@ In the sessions list in the Activity Bar, you can collect related sessions into 
 * **Rename or delete a group**: right-click a group header. Deleting a group removes only the group, and its sessions return to the ungrouped list.
 
 The extension saves groups per workspace folder, so they survive window reloads and appear in every window where you open the same folder. When you search the list, the extension shows matches in one flat list across all groups.
+
+### Filter the sessions list
+
+To narrow a long sessions list in the Activity Bar, use the two filter controls at the top of the list. Requires Claude Code v2.1.271 or later. Archived sessions don't appear while either filter is on.
+
+* **Active**: turn on this toggle to show only sessions that need your input, are working, or are unread, plus the session in the Claude tab you last focused.
+* **Filter by status**: click the funnel icon, then check **Needs input**, **Working**, or **Completed** to show sessions in any of those states. Check **Open** or **Closed** to narrow by whether a session is open. A session counts as open when it has a tab in this window or is running in another Claude Code process on this machine, such as in a terminal.
+
+When **Active** is on and you check a status, **Open**, or **Closed**, the list also shows every session that matches your checks. The filters you set persist across window reloads.
 
 ### Switch to terminal mode
 
