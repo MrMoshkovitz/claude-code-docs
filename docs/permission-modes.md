@@ -498,7 +498,7 @@ The following sections cover the order Claude Code evaluates an action in, how t
        * In a session with [server-side classifier review](#server-side-classifier-review), read-only and [sandboxed](/docs/en/sandboxing#sandbox-modes) shell commands wait for that review and are blocked if it flags them
        * A write inside your working directory that the [symlink check](/docs/en/permissions#symlinks) resolves to a location outside it prompts you
     3. Everything else goes to the classifier, apart from [critical-path removals](#critical-paths) under their default handling. The connector tools and `requiresUserInteraction` MCP tools that prompt you directly in step 1 never reach the classifier either, so neither an org-required approval nor a consent step is auto-approved
-    4. If the classifier blocks, Claude receives the reason and tries an alternative. In most sessions the reason names the rule the classifier matched, such as `[Data Exfiltration]`, rather than giving a written explanation; see [Review denials](/docs/en/auto-mode-config#review-denials)
+    4. If the classifier blocks, Claude receives the reason. In most sessions the reason names the rule the classifier matched, such as `[Data Exfiltration]`, rather than giving a written explanation; see [Review denials](/docs/en/auto-mode-config#review-denials)
 
     On entering auto mode, broad allow rules that grant arbitrary code execution are dropped:
 

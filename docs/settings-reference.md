@@ -2866,6 +2866,7 @@ This example turns off automatic compaction and routes API requests through a pr
 #### How `env` values interact with your shell
 
 * A value here overwrites the same variable exported in your shell, and when more than one settings file sets a variable, the [highest-precedence](/docs/en/settings#settings-precedence) one applies. [Variables Claude Code ignores in `env`](#variables-claude-code-ignores-in-env) lists the exceptions for project and local settings.
+* When the Claude Desktop app or a [self-hosted environment](/docs/en/self-hosted-environments) runner starts the session, the launch environment it builds takes precedence instead: Claude Code ignores an `env` value from any settings file for a variable the launch environment already sets. The [debug log](/docs/en/debug-your-config) names each ignored variable.
 * To cancel a shell export, set the variable to `""`. Claude Code treats an empty value as unset for provider selection, and subprocesses inherit the empty value.
 * `NO_COLOR` and `FORCE_COLOR` set here reach only subprocesses. To change Claude Code's own interface colors, set them in your shell before launching `claude`.
 * Values here are plain text in the settings file and reach every subprocess Claude Code starts. For an OTLP bearer token that rotates, use [`otelHeadersHelper`](#otelheadershelper); for API credentials, use [`apiKeyHelper`](#apikeyhelper).
@@ -4763,9 +4764,9 @@ Load the [claude.ai connectors](/docs/en/mcp#use-mcp-servers-from-claude-ai) Cla
 
 ### `allowedMcpServers`
 
-Allowlist the MCP servers people can add. Claude Code blocks any server that doesn't match an entry wherever it's defined, including plugin servers, servers passed with `--mcp-config`, and servers from claude.ai.
+Allowlist the MCP servers people can add. Claude Code blocks any server that doesn't match an entry wherever it's defined, including plugin servers, servers a user passes with `--mcp-config`, and servers from claude.ai.
 
-Built-in servers such as Claude in Chrome, the `ide` server Claude Code connects to in a running [VS Code](/docs/en/vs-code#the-built-in-ide-mcp-server) or [JetBrains](/docs/en/jetbrains#the-built-in-ide-mcp-server) IDE, and servers the CLI itself configures are exempt from the allowlist, and the denylist still applies to them. In-process `type: "sdk"` servers are exempt from both lists; the [app that started the session](/docs/en/mcp#how-connectors-reach-claude-code) registers them.
+Built-in servers such as Claude in Chrome, the `ide` server Claude Code connects to in a running [VS Code](/docs/en/vs-code#the-built-in-ide-mcp-server) or [JetBrains](/docs/en/jetbrains#the-built-in-ide-mcp-server) IDE, and servers the CLI itself configures are exempt from the allowlist, and the denylist still applies to them. On Claude Code v2.1.268 or later, a [Claude Tag](/docs/en/claude-tag) session's Slack tools are also exempt from the allowlist, and the denylist still applies to them. In-process `type: "sdk"` servers are exempt from both lists; the [app that started the session](/docs/en/mcp#how-connectors-reach-claude-code) registers them.
 
 Servers your organization delivers are also exempt from the allowlist, and the denylist still applies to them. The exemption covers every [`managedMcpServers`](#managedmcpservers) entry, and any [`managed-mcp.json`](/docs/en/managed-mcp#exclusive-control-with-managed-mcp-json) entry whose values use no `${VAR}` expansion. See [How a server is evaluated](/docs/en/managed-mcp#how-a-server-is-evaluated) for the full check order. Before v2.1.259, servers from `managed-mcp.json` had to match too.
 
@@ -5786,11 +5787,11 @@ Keys an organization uses to compute, refresh, and combine managed settings. See
 
 ### `disableSideloadFlags`
 
-Reject the `--plugin-dir`, `--plugin-url`, `--agents`, and `--mcp-config` CLI flags at startup, which users could otherwise pass to bypass [`strictKnownMarketplaces`](#strictknownmarketplaces) for a single run. Claude Code exits with an error naming the rejected flags, and applies the same check to surfaces that start the CLI with these flags internally, currently [Cowork](/docs/en/desktop) local sessions in the desktop app. In [cloud sessions](/docs/en/claude-code-on-the-web), Claude Code drops the MCP servers the server delivered through `--mcp-config`, other than in-process `type: "sdk"` entries, and starts the session. Requires Claude Code v2.1.193 or later.
+Reject the `--plugin-dir`, `--plugin-url`, `--agents`, and `--mcp-config` CLI flags at startup, which users could otherwise pass to bypass [`strictKnownMarketplaces`](#strictknownmarketplaces) for a single run. Claude Code exits with an error naming the rejected flags, and applies the same check to surfaces that start the CLI with these flags internally, currently [Cowork](/docs/en/desktop) local sessions in the desktop app. In [cloud sessions](/docs/en/claude-code-on-the-web), Claude Code instead starts the session and drops every server-delivered `--mcp-config` entry except in-process `type: "sdk"` entries and a [Claude Tag](/docs/en/claude-tag) session's Slack tools. Requires Claude Code v2.1.193 or later.
 
 * **Scope**: [`Managed`](#scopes)
 * **Type**: Boolean
-  * `true`: Claude Code rejects `--plugin-dir`, `--plugin-url`, `--agents`, and `--mcp-config` at startup and exits with an error naming them, except that in cloud sessions it drops the MCP servers the server delivered through `--mcp-config`, other than in-process `type: "sdk"` entries, and starts the session
+  * `true`: Claude Code rejects `--plugin-dir`, `--plugin-url`, `--agents`, and `--mcp-config` at startup and exits with an error naming them. In cloud sessions, it instead starts the session and drops every server-delivered `--mcp-config` entry except in-process `type: "sdk"` entries and a Claude Tag session's Slack tools
   * `false`: Claude Code accepts those flags
 * **Default**: `false`
 
@@ -5804,7 +5805,7 @@ Claude Code still accepts a `--mcp-config` whose servers are all in-process `typ
 
 The same check covers plugin folders named in the [`CLAUDE_CODE_PLUGIN_DIRS`](/docs/en/env-vars#variables) environment variable, which requires Claude Code v2.1.280 or later. When the variable names a folder, Claude Code exits with the same error, and the error says to unset the variable.
 
-In cloud sessions, Claude Code also ignores server-delivered mid-session MCP updates, the path behind cloud session configuration and SDK `setMcpServers()` calls that reach those sessions. In-process `type: "sdk"` entries stay exempt there too. Before v2.1.239, a server-delivered `--mcp-config` blocked a cloud session from starting.
+In cloud sessions, Claude Code also ignores server-delivered mid-session MCP updates, the path behind cloud session configuration and SDK `setMcpServers()` calls that reach those sessions. In-process `type: "sdk"` entries and a Claude Tag session's Slack tools stay exempt there too. Before v2.1.268, both this drop and the startup drop also removed a Claude Tag session's Slack tools. Before v2.1.239, a server-delivered `--mcp-config` blocked a cloud session from starting.
 
 ### `forceRemoteSettingsRefresh`
 

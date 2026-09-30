@@ -150,6 +150,7 @@ Match the message you see to a section below.
 | `There's an issue with the selected model` | [Request errors](#theres-an-issue-with-the-selected-model) |
 | `Model ... is not a recognized model id` | [Request errors](#model-is-not-a-recognized-model-id) |
 | `Model ... not found` | [Request errors](#model-not-found) |
+| `Couldn't confirm model ... with the API` | [Request errors](#couldnt-confirm-model-with-the-api) |
 | `API error: ... · model not changed` | [Request errors](#api-error-model-not-changed) |
 | `Claude Opus is not available with the Claude Pro plan` | [Request errors](#claude-opus-is-not-available-with-the-claude-pro-plan) |
 | `Claude Code ... does not support this model; version ... or newer is required` | [Request errors](#claude-code-does-not-support-this-model) |
@@ -2204,26 +2205,28 @@ There's an issue with the selected model (claude-...). It may not exist or you m
 
 ### Model is not a recognized model id
 
-The model string you passed to a model switch isn't a model alias, a model ID this Claude Code version knows, or an ID that starts with `claude-`. The usual causes are a typo in the ID, a display name such as `Sonnet 5` where the ID `claude-sonnet-5` is expected, or an alias that only newer Claude Code versions recognize. Claude Code rejects the switch immediately. Before v2.1.200, Claude Code saved the string and failed on the next request with [There's an issue with the selected model](#theres-an-issue-with-the-selected-model).
+The string you passed to a model switch isn't one Claude Code can use as a model, so it refused the switch without sending a request and the session keeps its current model. You can get this error when a model is set through the [Agent SDK](/docs/en/agent-sdk/typescript) `setModel()` method, by an app that runs the Claude Code CLI for you, such as the [Desktop app](/docs/en/desktop), or when you pick a model from a device connected through [Remote Control](/docs/en/remote-control). Before v2.1.200, Claude Code saved the string and failed on the next request with [There's an issue with the selected model](#theres-an-issue-with-the-selected-model).
 
 ```text theme={null}
-Model "claud-sonnet-5" is not a recognized model id. Did you mean 'claude-sonnet-5'?
+Model "Sonnet5" is not a recognized model id. Did you mean 'claude-sonnet-5'?
 ```
 
-The trailing hint names the closest matching alias or model ID. When nothing is close enough, it reads `Run /model to see available models.` instead. In a session that the [Desktop app](/docs/en/desktop) starts for you, the no-match hint reads `Switch to a different model.`
+In this example an app sent the display name `Sonnet 5`, which the message repeats without its space. The trailing hint names the closest matching alias or model ID. When nothing is close enough, it reads `Run /model to see available models.` instead. In a session that the [Desktop app](/docs/en/desktop) starts for you, the no-match hint reads `Switch to a different model.`
 
-Claude Code produces this error locally at the moment the switch is requested, before any API request is made. It applies when a model is set through the [Agent SDK](/docs/en/agent-sdk/typescript) `setModel()` method, by an app such as the [Desktop app](/docs/en/desktop) that runs the Claude Code CLI for you, or when you pick a model from a device connected through [Remote Control](/docs/en/remote-control). Before v2.1.260, the check didn't cover Remote Control picks, so Claude Code applied the pick and the next request failed with [There's an issue with the selected model](#theres-an-issue-with-the-selected-model).
+When you switch through the Agent SDK or an app on the Anthropic API, only a string that can't be a model ID gets this error, such as a display name or an empty string.
+
+When you pick a model from a Remote Control device, Claude Code checks the string locally. Any string that isn't a model alias, a model Claude Code lists or you configured, or an ID that starts with `claude-` gets this error, a mistyped ID such as `claud-sonnet-5` included. Before v2.1.260, this check didn't cover Remote Control picks, so an unrecognized string was applied and failed on the next request.
 
 **What to do:**
 
 * Run `/model` with no argument to open the picker and choose from the models available to your account, then pass the alias or ID shown there
-* If you used an alias that a newer Claude Code version supports, run `claude update`. A full ID that starts with `claude-` passes this local check even when the model is newer than your Claude Code version. The server can still require a minimum version for that model; see [Claude Code does not support this model](#claude-code-does-not-support-this-model).
+* If you used an alias that only a newer Claude Code version supports, run `claude update`, or pass the model's full ID instead. The server can still require a minimum Claude Code version for that model; see [Claude Code does not support this model](#claude-code-does-not-support-this-model).
 * A model saved before v2.1.200 isn't repaired by this check. If a stale value keeps coming back, remove it from the locations listed under [Setting your model](/docs/en/model-config#setting-your-model).
-* The check runs only on the Anthropic API. On any other provider or gateway, including a custom `ANTHROPIC_BASE_URL`, the provider defines the model names, so Claude Code accepts any string and passes it through. Claude Code can still write the [unrecognized-model diagnostic line](#unrecognized-model-id-on-a-request) at request time, on every provider.
+* On any provider other than the Anthropic API, or behind a gateway or custom `ANTHROPIC_BASE_URL`, only an empty string gets this error. Claude Code can still write the [unrecognized-model diagnostic line](#unrecognized-model-id-on-a-request) at request time, on every provider.
 
 ### Model not found
 
-You picked a model with `/model <name>` and Claude Code couldn't confirm that a model with that name exists. When the name isn't a [model alias](/docs/en/model-config#model-aliases) or another spelling Claude Code accepts locally, `/model` verifies it with a minimal API request, and this error is usually your API endpoint's answer. A name that can't be a model ID at all, such as one containing spaces, gets the same message.
+You switched to a model by name and Claude Code couldn't confirm that a model with that name exists. When the name isn't a [model alias](/docs/en/model-config#model-aliases) or another spelling Claude Code accepts locally, Claude Code verifies it with a minimal API request, and this error is usually your API endpoint's answer. With `/model <name>`, a name that can't be a model ID at all, such as one containing spaces, gets the same message.
 
 ```text theme={null}
 Model 'claude-opus-9' not found
@@ -2235,7 +2238,25 @@ On providers with provider-specific model IDs, the message may add a `Try '...' 
 
 * Run `/model` with no argument and pick from the models available to your account, or use a [model alias](/docs/en/model-config#model-aliases) such as `sonnet`, which resolves to a maintained default
 * If you typed a full ID, check it against your provider's model catalog. A newly launched model can be available on the Anthropic API before your provider or region offers it.
+* In the Agent SDK, `setModel()` fails with this message and the session keeps running on its previous model. In the TypeScript SDK, call [`supportedModels()`](/docs/en/agent-sdk/typescript#query-object) to list the models you can switch to.
 * Before v2.1.265, `/model` also rejected the `opusplan[1m]` alias spelling with this error. On those versions, update Claude Code, or set the model in [settings](/docs/en/model-config#setting-your-model) or with `--model` instead.
+
+<h3 id="couldnt-confirm-model-with-the-api">
+  Couldn't confirm model with the API
+</h3>
+
+You switched models through the [Agent SDK](/docs/en/agent-sdk/typescript) `setModel()` method or an app that runs the Claude Code CLI for you, such as the [Desktop app](/docs/en/desktop), and the request that confirms the model ID with your API endpoint got no answer within five seconds. The session keeps its current model.
+
+```text theme={null}
+Couldn't confirm model "claude-sonnet-5" with the API. Try again, or run /model to see available models.
+```
+
+In a session that the [Desktop app](/docs/en/desktop) starts for you, the message ends at `Try again.`
+
+**What to do:**
+
+* Switch to the model again
+* If the switch keeps failing, check that Claude Code can reach your API endpoint; see [Network and connection errors](#network-and-connection-errors)
 
 <h3 id="api-error-model-not-changed">
   API error when checking the picked model
