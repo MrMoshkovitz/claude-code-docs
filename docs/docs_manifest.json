@@ -352,8 +352,8 @@
     "claude-directory.md": {
       "original_url": "https://code.claude.com/docs/en/claude-directory",
       "original_md_url": "https://code.claude.com/docs/en/claude-directory.md",
-      "hash": "cff57d17260dfa4d534f10a957de9917a89404c24c9e8a7db8d2bc88707a75cf",
-      "last_updated": "2026-10-26T22:01:01.656640"
+      "hash": "a63249a82acb6bf9400441b34b12cc2f4b690fa633c6c34655902fb6884bae01",
+      "last_updated": "2026-10-29T06:03:02.052543"
     },
     "claude-platform-on-aws.md": {
       "original_url": "https://code.claude.com/docs/en/claude-platform-on-aws",
@@ -1365,8 +1365,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-10-29T03:04:32.665719",
-    "fetch_duration_seconds": 121.796318,
+    "last_fetch_completed": "2026-10-29T06:04:32.779701",
+    "fetch_duration_seconds": 122.29572,
     "total_pages_discovered": 227,
     "pages_fetched_successfully": 228,
     "pages_failed": 0,
@@ -1376,7 +1376,7 @@
     "total_files": 227,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-10-29T03:04:32.665749",
+  "last_updated": "2026-10-29T06:04:32.779727",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
