@@ -8,15 +8,15 @@
 
 In the Claude Desktop app, Claude Code is the **Code** tab. The app also has chat and [Cowork](https://claude.com/product/cowork), which handles Dispatch and longer agentic work. This page is the reference for the Code tab.
 
-> **[Download for macOS](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect?utm_source=claude_code\&utm_medium=docs)**
+> [card] [Download for macOS](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect?utm_source=claude_code\&utm_medium=docs)
 >
 > Universal build for Intel and Apple Silicon
 
-> **[Download for Windows](https://claude.ai/api/desktop/win32/x64/setup/latest/redirect?utm_source=claude_code\&utm_medium=docs)**
+> [card] [Download for Windows](https://claude.ai/api/desktop/win32/x64/setup/latest/redirect?utm_source=claude_code\&utm_medium=docs)
 >
 > For x64 processors
 
-> **[Get Claude for Linux (beta)](https://code.claude.com/docs/en/desktop-linux.md)**
+> [card] [Get Claude for Linux (beta)](https://code.claude.com/docs/en/desktop-linux.md)
 >
 > apt or .deb for Ubuntu and Debian
 
@@ -739,70 +739,70 @@ Have your server read its port from the `PORT` environment variable, which carri
 
 These configurations show common setups for different project types:
 
-**Next.js**
+> [tab] Next.js
+>
+> This configuration runs a Next.js app using Yarn on port 3000:
+>
+> ```json theme={null}
+> {
+>   "version": "0.0.1",
+>   "configurations": [
+>     {
+>       "name": "web",
+>       "runtimeExecutable": "yarn",
+>       "runtimeArgs": ["dev"],
+>       "port": 3000
+>     }
+>   ]
+> }
+> ```
 
-This configuration runs a Next.js app using Yarn on port 3000:
+> [tab] Multiple servers
+>
+> For a monorepo with a frontend and an API server, define multiple configurations. The frontend uses `autoPort: true` so it picks a free port if 3000 is taken, while the API server requires port 8080 exactly:
+>
+> ```json theme={null}
+> {
+>   "version": "0.0.1",
+>   "configurations": [
+>     {
+>       "name": "frontend",
+>       "runtimeExecutable": "npm",
+>       "runtimeArgs": ["run", "dev"],
+>       "cwd": "apps/web",
+>       "port": 3000,
+>       "autoPort": true
+>     },
+>     {
+>       "name": "api",
+>       "runtimeExecutable": "npm",
+>       "runtimeArgs": ["run", "start"],
+>       "cwd": "server",
+>       "port": 8080,
+>       "env": { "NODE_ENV": "development" },
+>       "autoPort": false
+>     }
+>   ]
+> }
+> ```
 
-```json theme={null}
-{
-  "version": "0.0.1",
-  "configurations": [
-    {
-      "name": "web",
-      "runtimeExecutable": "yarn",
-      "runtimeArgs": ["dev"],
-      "port": 3000
-    }
-  ]
-}
-```
-
-**Multiple servers**
-
-For a monorepo with a frontend and an API server, define multiple configurations. The frontend uses `autoPort: true` so it picks a free port if 3000 is taken, while the API server requires port 8080 exactly:
-
-```json theme={null}
-{
-  "version": "0.0.1",
-  "configurations": [
-    {
-      "name": "frontend",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "cwd": "apps/web",
-      "port": 3000,
-      "autoPort": true
-    },
-    {
-      "name": "api",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start"],
-      "cwd": "server",
-      "port": 8080,
-      "env": { "NODE_ENV": "development" },
-      "autoPort": false
-    }
-  ]
-}
-```
-
-**Node.js script**
-
-To run a Node.js script directly instead of using a package manager command, use the `program` field:
-
-```json theme={null}
-{
-  "version": "0.0.1",
-  "configurations": [
-    {
-      "name": "server",
-      "program": "server.js",
-      "args": ["--verbose"],
-      "port": 4000
-    }
-  ]
-}
-```
+> [tab] Node.js script
+>
+> To run a Node.js script directly instead of using a package manager command, use the `program` field:
+>
+> ```json theme={null}
+> {
+>   "version": "0.0.1",
+>   "configurations": [
+>     {
+>       "name": "server",
+>       "program": "server.js",
+>       "args": ["--verbose"],
+>       "port": 4000
+>     }
+>   ]
+> }
+> ```
 
 ## Environment configuration
 
@@ -1328,7 +1328,7 @@ File edits and some tools can fail while Desktop is disconnected. If the task ne
 * **Workflows**: Desktop checks each new [workflow](https://code.claude.com/docs/en/workflows.md) before it starts, so while Desktop is disconnected a new one waits up to 10 minutes and then fails
 * **MCP servers**: MCP servers that Claude Code starts on the remote machine don't run through Desktop, so Claude can still call their tools. Servers from `claude_desktop_config.json` are among them only if Desktop doesn't use its [built-in SSH client](#worktree-edits-while-disconnected). Otherwise, and on [some Windows remote machines](#windows-remote-machines), Claude can't call their tools while Desktop is disconnected.
 
-> **When edits in a worktree keep working**
+> [accordion] When edits in a worktree keep working
 >
 > On a Linux or macOS remote machine, the check doesn't go through Desktop, so edits inside the worktree keep working while Desktop is disconnected. Before Claude Desktop v2.37337.0, this holds on a Linux remote machine only.
 >
@@ -1369,7 +1369,7 @@ If Desktop hasn't reconnected when you come back, send a message in the session.
 * **Remembered password**: a password that you let Desktop remember also works without a prompt, but for a long absence prefer a key that your SSH agent holds. If sign-ins with that password break off or hang, Desktop can stop reconnecting and wait for you.
 * **Any other prompt**: if the remote machine prompts for anything else, such as a one-time code, you can get a notification on your computer. Click the notification, or send a message in the session, and Desktop shows the prompt.
 
-> **If a jump host asks for a sign-in, the outage is long, output is missing, or the process is gone**
+> [accordion] If a jump host asks for a sign-in, the outage is long, output is missing, or the process is gone
 >
 > * **Jump host, pushes stop while you're away**: this can happen with Desktop on macOS or Linux when nobody answers a jump host's sign-in, for example a push to a phone. Desktop then stops reconnecting while nobody is at your computer. When you unlock or use the computer, you can get another push, because Desktop can try again. After three unanswered attempts it waits until you retry or send a message.
 > * **Jump host, pushes keep coming**: where Desktop can't tell that nobody answers, as with Desktop on Windows, it keeps trying while it has a process to rejoin, whether or not that process still runs. You can get another push with each attempt. To end the attempts, quit Desktop, which [can cost you the running task](#reopen-a-session-after-you-quit-desktop).

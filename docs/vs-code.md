@@ -656,33 +656,33 @@ The extension registers a URI handler at `vscode://anthropic.claude-code/open`. 
 
 Invoke the handler with your operating system's URL opener.
 
-**macOS**
+> [tab] macOS
+>
+> ```bash theme={null}
+> open "vscode://anthropic.claude-code/open"
+> ```
 
-```bash theme={null}
-open "vscode://anthropic.claude-code/open"
-```
+> [tab] Linux
+>
+> ```bash theme={null}
+> xdg-open "vscode://anthropic.claude-code/open"
+> ```
+>
+> The `xdg-open` command comes from the `xdg-utils` package. If the shell reports it isn't found, see [xdg-open is not found on Linux](https://code.claude.com/docs/en/deep-links.md#xdg-open-is-not-found-on-linux).
 
-**Linux**
-
-```bash theme={null}
-xdg-open "vscode://anthropic.claude-code/open"
-```
-
-The `xdg-open` command comes from the `xdg-utils` package. If the shell reports it isn't found, see [xdg-open is not found on Linux](https://code.claude.com/docs/en/deep-links.md#xdg-open-is-not-found-on-linux).
-
-**Windows**
-
-In PowerShell:
-
-```powershell theme={null}
-Start-Process "vscode://anthropic.claude-code/open"
-```
-
-In `cmd.exe`, `start` treats its first quoted argument as a window title, so pass an empty title before the URL:
-
-```cmd theme={null}
-start "" "vscode://anthropic.claude-code/open"
-```
+> [tab] Windows
+>
+> In PowerShell:
+>
+> ```powershell theme={null}
+> Start-Process "vscode://anthropic.claude-code/open"
+> ```
+>
+> In `cmd.exe`, `start` treats its first quoted argument as a window title, so pass an empty title before the URL:
+>
+> ```cmd theme={null}
+> start "" "vscode://anthropic.claude-code/open"
+> ```
 
 The handler accepts two optional query parameters:
 
