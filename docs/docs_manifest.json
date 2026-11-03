@@ -1114,8 +1114,8 @@
     "setup.md": {
       "original_url": "https://code.claude.com/docs/en/setup",
       "original_md_url": "https://code.claude.com/docs/en/setup.md",
-      "hash": "652872f26cfd711c4f92351b1ef8338d3f0b6140024c246c42edcbcbdfea172d",
-      "last_updated": "2026-11-01T18:03:04.958383"
+      "hash": "4c3cd110ffc0f00002b70a42ab0b6dc82f193cce52c9666c1184b33d98cd1471",
+      "last_updated": "2026-11-03T18:03:40.490092"
     },
     "skills.md": {
       "original_url": "https://code.claude.com/docs/en/skills",
@@ -1365,8 +1365,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-11-03T15:03:12.399206",
-    "fetch_duration_seconds": 124.922046,
+    "last_fetch_completed": "2026-11-03T18:04:02.622832",
+    "fetch_duration_seconds": 124.124781,
     "total_pages_discovered": 227,
     "pages_fetched_successfully": 228,
     "pages_failed": 0,
@@ -1376,7 +1376,7 @@
     "total_files": 227,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-11-03T15:03:12.399236",
+  "last_updated": "2026-11-03T18:04:02.622860",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
