@@ -496,8 +496,8 @@
     "desktop.md": {
       "original_url": "https://code.claude.com/docs/en/desktop",
       "original_md_url": "https://code.claude.com/docs/en/desktop.md",
-      "hash": "35b7c1ee8b3512849a8652bddb08a049d15682dfe6ca06dc99ef1d7447a54b9f",
-      "last_updated": "2026-11-05T06:03:20.523130"
+      "hash": "3f1f9c68b029bd8d764737eea843484298a2eb95a855b856c2e3cd18794c9d6a",
+      "last_updated": "2026-11-07T00:04:00.462947"
     },
     "desktop-ios-simulator.md": {
       "original_url": "https://code.claude.com/docs/en/desktop-ios-simulator",
@@ -778,8 +778,8 @@
     "permission-modes.md": {
       "original_url": "https://code.claude.com/docs/en/permission-modes",
       "original_md_url": "https://code.claude.com/docs/en/permission-modes.md",
-      "hash": "edb107bf4d7dc245bf46c4bfd346b7cf6634b12804611937729603d33eaf4ecc",
-      "last_updated": "2026-11-06T21:02:22.476393"
+      "hash": "edb867988c953da995b7b997a626e012c30d4a18693519c1d7f1102df00c75fb",
+      "last_updated": "2026-11-07T00:04:26.054879"
     },
     "permissions.md": {
       "original_url": "https://code.claude.com/docs/en/permissions",
@@ -1114,8 +1114,8 @@
     "setup.md": {
       "original_url": "https://code.claude.com/docs/en/setup",
       "original_md_url": "https://code.claude.com/docs/en/setup.md",
-      "hash": "5760050786d8b0fbbd74d629c75ef5c7132a69322c6fdaa1991625400d9e4744",
-      "last_updated": "2026-11-06T21:02:55.595814"
+      "hash": "8dc9f85869815f261b64fed8cf8598e5d77d247d26efa99d32a7f15c61e274ba",
+      "last_updated": "2026-11-07T00:04:56.571250"
     },
     "skills.md": {
       "original_url": "https://code.claude.com/docs/en/skills",
@@ -1365,8 +1365,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-11-06T21:03:20.359363",
-    "fetch_duration_seconds": 134.863759,
+    "last_fetch_completed": "2026-11-07T00:05:18.863181",
+    "fetch_duration_seconds": 123.510286,
     "total_pages_discovered": 227,
     "pages_fetched_successfully": 228,
     "pages_failed": 0,
@@ -1376,7 +1376,7 @@
     "total_files": 227,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-11-06T21:03:20.359387",
+  "last_updated": "2026-11-07T00:05:18.863206",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
