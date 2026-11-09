@@ -1000,8 +1000,8 @@
     "remote-control.md": {
       "original_url": "https://code.claude.com/docs/en/remote-control",
       "original_md_url": "https://code.claude.com/docs/en/remote-control.md",
-      "hash": "1b63db7c8f6256f660000ebee2a7a9abcd01453ee917aaba9a7cf7c091f1fd63",
-      "last_updated": "2026-11-06T21:02:44.328921"
+      "hash": "cbc858114793ceb03f5d3da6b91397210a2facad3749fced8c81feb10d27b4b2",
+      "last_updated": "2026-11-09T18:03:07.589092"
     },
     "routines.md": {
       "original_url": "https://code.claude.com/docs/en/routines",
@@ -1365,8 +1365,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-11-09T15:03:23.853561",
-    "fetch_duration_seconds": 127.487596,
+    "last_fetch_completed": "2026-11-09T18:03:40.944804",
+    "fetch_duration_seconds": 125.746565,
     "total_pages_discovered": 227,
     "pages_fetched_successfully": 228,
     "pages_failed": 0,
@@ -1376,7 +1376,7 @@
     "total_files": 227,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-11-09T15:03:23.853592",
+  "last_updated": "2026-11-09T18:03:40.944839",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
