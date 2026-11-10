@@ -1348,8 +1348,8 @@
     "workflows.md": {
       "original_url": "https://code.claude.com/docs/en/workflows",
       "original_md_url": "https://code.claude.com/docs/en/workflows.md",
-      "hash": "b940968734f59d5e7f3b58c9513d1b90c69c9a429436eadf6b9d1d95873bf4c5",
-      "last_updated": "2026-10-27T19:51:03.146913"
+      "hash": "5b262faf3ba1bb40315a27d560371bed5b4969b7ad6855bbcecf284487a49b54",
+      "last_updated": "2026-11-10T09:03:27.095103"
     },
     "worktrees.md": {
       "original_url": "https://code.claude.com/docs/en/worktrees",
@@ -1365,8 +1365,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-11-10T06:04:33.135331",
-    "fetch_duration_seconds": 120.631215,
+    "last_fetch_completed": "2026-11-10T09:03:28.178516",
+    "fetch_duration_seconds": 119.839122,
     "total_pages_discovered": 227,
     "pages_fetched_successfully": 228,
     "pages_failed": 0,
@@ -1376,7 +1376,7 @@
     "total_files": 227,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-11-10T06:04:33.135356",
+  "last_updated": "2026-11-10T09:03:28.178544",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
