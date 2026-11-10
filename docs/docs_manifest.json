@@ -1360,13 +1360,13 @@
     "zero-data-retention.md": {
       "original_url": "https://code.claude.com/docs/en/zero-data-retention",
       "original_md_url": "https://code.claude.com/docs/en/zero-data-retention.md",
-      "hash": "3e201f9929d89530fed35f717403614a3d7bf8346838d50b14f0cb9cebd3d6ea",
-      "last_updated": "2026-11-09T21:03:19.957574"
+      "hash": "76ce1148782ed8400e1b1db3aefd8fb3e6c25964b2a9df1f46628c6c3ccecd18",
+      "last_updated": "2026-11-10T15:03:06.552569"
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-11-10T12:03:32.381971",
-    "fetch_duration_seconds": 125.346883,
+    "last_fetch_completed": "2026-11-10T15:03:06.640253",
+    "fetch_duration_seconds": 124.122817,
     "total_pages_discovered": 227,
     "pages_fetched_successfully": 228,
     "pages_failed": 0,
@@ -1376,7 +1376,7 @@
     "total_files": 227,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-11-10T12:03:32.382001",
+  "last_updated": "2026-11-10T15:03:06.640279",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
