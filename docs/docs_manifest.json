@@ -934,8 +934,8 @@
     "plugins__mods__test.md": {
       "original_url": "https://code.claude.com/docs/en/plugins/mods/test",
       "original_md_url": "https://code.claude.com/docs/en/plugins/mods/test.md",
-      "hash": "65d8154fd43d809a68bbb0436fda364f16ccc0b01c7a599097204ad033620ed7",
-      "last_updated": "2026-10-26T22:02:04.151157"
+      "hash": "0023ee9e002a888eeeea8652ca40633b4745839efb5e7b3f57a8c297c52fae56",
+      "last_updated": "2026-11-12T06:04:19.780388"
     },
     "plugins__mods__troubleshoot.md": {
       "original_url": "https://code.claude.com/docs/en/plugins/mods/troubleshoot",
@@ -1108,8 +1108,8 @@
     "settings-reference.md": {
       "original_url": "https://code.claude.com/docs/en/settings-reference",
       "original_md_url": "https://code.claude.com/docs/en/settings-reference.md",
-      "hash": "7f0be22ed906e5c3d3df18c791b8716d87f6702a59754b711f98fdb84e2ec2c2",
-      "last_updated": "2026-11-12T03:02:56.392985"
+      "hash": "164320461acfc2ab93d6f7dfddb859fe3d36aef77ac9aeca28fe744d523c65fd",
+      "last_updated": "2026-11-12T06:04:35.742899"
     },
     "setup.md": {
       "original_url": "https://code.claude.com/docs/en/setup",
@@ -1215,8 +1215,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-11-12T03:03:05.887553",
-    "fetch_duration_seconds": 111.671498,
+    "last_fetch_completed": "2026-11-12T06:04:45.099008",
+    "fetch_duration_seconds": 110.03354,
     "total_pages_discovered": 202,
     "pages_fetched_successfully": 203,
     "pages_failed": 0,
@@ -1226,7 +1226,7 @@
     "total_files": 202,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-11-12T03:03:05.887598",
+  "last_updated": "2026-11-12T06:04:45.099038",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
