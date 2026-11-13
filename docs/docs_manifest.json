@@ -544,8 +544,8 @@
     "errors.md": {
       "original_url": "https://code.claude.com/docs/en/errors",
       "original_md_url": "https://code.claude.com/docs/en/errors.md",
-      "hash": "b5911261577508895017838a58a562daa5e9dee39a7e5376b9925e18f69f3f16",
-      "last_updated": "2026-11-13T00:04:33.199859"
+      "hash": "f82b28d0d60a91b57419ef7cf063fa987eee3955fc570427adcaf6e7a278ed7a",
+      "last_updated": "2026-11-13T03:02:02.362525"
     },
     "fast-mode.md": {
       "original_url": "https://code.claude.com/docs/en/fast-mode",
@@ -748,8 +748,8 @@
     "model-config.md": {
       "original_url": "https://code.claude.com/docs/en/model-config",
       "original_md_url": "https://code.claude.com/docs/en/model-config.md",
-      "hash": "64ca2a65601db69c550180297107fc7560625adbefd46154c957dfcb0f0d4f2b",
-      "last_updated": "2026-11-13T00:04:51.758821"
+      "hash": "b48fe2c7801147806634fbf8fb8e8edd48e92915d40a53b8d5a17630953ad60a",
+      "last_updated": "2026-11-13T03:02:21.761053"
     },
     "monitoring-usage.md": {
       "original_url": "https://code.claude.com/docs/en/monitoring-usage",
@@ -1215,8 +1215,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-11-13T00:05:34.380162",
-    "fetch_duration_seconds": 111.145828,
+    "last_fetch_completed": "2026-11-13T03:03:07.479031",
+    "fetch_duration_seconds": 116.658393,
     "total_pages_discovered": 202,
     "pages_fetched_successfully": 203,
     "pages_failed": 0,
@@ -1226,7 +1226,7 @@
     "total_files": 202,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-11-13T00:05:34.380189",
+  "last_updated": "2026-11-13T03:03:07.479055",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",
