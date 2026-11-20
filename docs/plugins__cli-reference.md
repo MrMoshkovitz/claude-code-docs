@@ -30,6 +30,8 @@ Every subcommand shares these exit codes, plugin arguments, and scope values:
 * **Plugin arguments**: a `<plugin>` argument is a plugin `name` or `name@marketplace`. When two marketplaces offer the same name, use the qualified form. `configure` takes only the qualified form.
 * **Scopes**: `--scope` takes `user`, `project`, or `local`, and names the settings file the command writes to. `update` also takes `managed`.
 
+In a terminal, success lines leave out `Successfully`, as in `Installed plugin:`. When stdout or stderr isn't a terminal, `Successfully` stays.
+
 ### plugin init
 
 Scaffold a new plugin at `~/.claude/skills/<name>/`. Unless your administrator has [blocked skills-directory plugins](https://code.claude.com/docs/en/plugins/loading.md#skills-directory-plugins-blocked-by-managed-settings), it loads in your next session as `<name>@skills-dir` with no install step.
@@ -708,8 +710,6 @@ For what a marketplace is and how Claude Code caches it, see [Plugin loading ref
 
 Add a marketplace from a GitHub repository, a git URL, a hosted `marketplace.json`, or a local path, and declare it in a settings file.
 
-After you add it, Claude Code installs any [dependencies](https://code.claude.com/docs/en/plugins/dependencies.md) that your installed plugins were missing.
-
 ```bash theme={null}
 claude plugin marketplace add <source> [options]
 ```
@@ -852,12 +852,11 @@ For which surfaces have `/plugin`, how to install without it, and what each pane
 
 A `<plugin>` is a plugin `name` or `name@marketplace`.
 
-The table below lists every session form. The shell subcommands `init`, `update`, `details`, `prune`, `eval`, `eval init`, and `test` have no session form.
+The table below lists the session forms. The shell subcommands `init`, `update`, `details`, `prune`, `eval`, `eval init`, and `test` have no session form.
 
 | Command | Aliases | What it does |
 | :- | :- | :- |
-| `/plugin` | | Opens the panel on the **Discover** tab. Any unrecognized first word after `/plugin` does the same |
-| `/plugin help` | `/plugin --help`, `/plugin -h` | Shows the usage list of `/plugin` subcommands |
+| `/plugin` | | Opens the panel on the **Discover** tab |
 | `/plugin list [--enabled\|--disabled]` | `ls` | Prints your marketplace-installed plugins inline, with version, scope, and status. A filter flag shows only that state. A plugin whose enable state hasn't been applied yet is marked `run /reload-plugins to apply` |
 | `/plugin install` | `i` | Opens the **Discover** tab |
 | `/plugin install <plugin>` | `i` | Opens the plugin's details in the **Discover** tab. With `name@marketplace`, opens them in that marketplace's list |
@@ -899,7 +898,9 @@ Claude Code reloads every active plugin and prints one summary line, `Reloaded: 
 
 The skills count covers every skill a plugin provides, both its `commands/` entries and its `SKILL.md` skills. The agents count is the number of agents loaded in the session, including ones that don't come from plugins.
 
-When a reloaded plugin's [dependencies](https://code.claude.com/docs/en/plugins/dependencies.md) are missing, Claude Code installs them, reloads again, and appends `(+ N dependencies: <names>) resolved` to the summary.
+### Dependencies installed during a reload
+
+When a reloaded plugin is missing a [dependency](https://code.claude.com/docs/en/plugins/dependencies.md) that Claude Code can resolve, Claude Code installs the dependency. When the reload applies, the summary includes `(+ N dependencies: <names>) resolved`. If Claude Code [doesn't apply the reload](#reloads-that-change-mcp-tools) or the summary shows `installed but not applied`, run `/reload-plugins --force`.
 
 ### Reloads that change MCP tools
 
@@ -921,7 +922,7 @@ Plugin authors use them to test a plugin before publishing. For the load-edit-re
 
 | Flag | Description | Example |
 | :- | :- | :- |
-| `--plugin-dir <path>` | Load a plugin from a directory or a `.zip` archive of one. A folder of plugins loads each child folder that holds a `.claude-plugin/plugin.json`. Each flag takes one path | `claude --plugin-dir ./my-plugin --plugin-dir ./other.zip` |
+| `--plugin-dir <path>` | Load a plugin from a directory or `.zip` archive, or several from a [folder of plugins](https://code.claude.com/docs/en/plugins/create.md#load-a-folder-of-plugins). Each flag takes one path | `claude --plugin-dir ./my-plugin --plugin-dir ./other.zip` |
 | `--plugin-url <url>` | Fetch a plugin `.zip` archive from a URL. Repeat the flag, or pass several URLs space-separated in one quoted value | `claude --plugin-url "https://example.com/a.zip https://example.com/b.zip"` |
 
 A plugin that either flag loads is a session-only plugin. [`claude plugin list`](#plugin-list) shows it only when the same flag precedes the subcommand, as in `claude --plugin-dir ./my-plugin plugin list`. The plugin appears as `<name>@inline` under a heading that begins `Session-only plugins`, and `--json` reports its `scope` as `session`.
