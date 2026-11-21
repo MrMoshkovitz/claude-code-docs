@@ -768,7 +768,7 @@ The tabs below show a few more matchers on different event types.
 
 #### Filter by tool name and arguments with the `if` field
 
-The `if` field uses [permission rule syntax](https://code.claude.com/docs/en/permissions.md) to filter hooks by tool name and arguments together, so the hook process only spawns when the tool call matches. This goes beyond `matcher`, which filters at the group level by tool name only.
+The `if` field uses [permission rule syntax](https://code.claude.com/docs/en/permissions.md) to filter hooks by tool name and arguments together.
 
 For example, this configuration runs a hook only when Claude uses `git` commands rather than all Bash commands:
 

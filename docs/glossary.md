@@ -143,7 +143,7 @@ Learn more: [Explore the context window](https://code.claude.com/docs/en/context
 
 ### Dispatch
 
-A phone-initiated task router that spawns a Claude Code session in the Desktop app when you send a coding task from the Claude mobile app. Your prompt routes to the right tool automatically. Available on Pro, Max, and Ultra plans.
+A phone-initiated task router that spawns a Claude Code session in the Desktop app when you send a coding task from the Claude mobile app. Your prompt routes to the right tool automatically. Not available to new users.
 
 Learn more: [Sessions from Dispatch](https://code.claude.com/docs/en/desktop.md#sessions-from-dispatch)
 

@@ -5305,7 +5305,7 @@ If you set it to `"claudeai"` in any settings file, Claude Code also stops offer
 }
 ```
 
-Every first-party login path applies the restriction, including the [VS Code extension](https://code.claude.com/docs/en/vs-code.md), the Agent SDK, `claude setup-token`, and `/install-github-app`, except the terminal's interactive login screen, reached by `/login` or first-run onboarding, which pre-selects the method without enforcing it. Before v2.1.212, only terminal logins applied it. See [Restrict login to your organization](https://code.claude.com/docs/en/authentication.md#restrict-login-to-your-organization) for how each login path, environment credentials, and third-party providers are handled.
+Every first-party login path applies the restriction, including the [VS Code extension](https://code.claude.com/docs/en/vs-code.md), the Agent SDK, `claude setup-token`, and `/install-github-app`, except the terminal's interactive login screen, reached by `/login` or first-run onboarding, which can pre-select the method without enforcing it. Before v2.1.212, only terminal logins applied the restriction. See [Restrict login to your organization](https://code.claude.com/docs/en/authentication.md#restrict-login-to-your-organization) for how each login path, environment credentials, and third-party providers are handled.
 
 When a managed source on the machine sets `"gateway"`, Claude Code doesn't use a leftover login, API key, or `apiKeyHelper` credential. See [Administrator policy requires a Cloud gateway sign-in](https://code.claude.com/docs/en/errors.md#administrator-policy-requires-a-cloud-gateway-sign-in) for the message each one produces. If you select a cloud provider through `CLAUDE_CODE_USE_BEDROCK` or a similar environment variable, the session doesn't need the gateway sign-in. Before v2.1.261, Claude Code used a leftover login on these machines.
 
@@ -5329,7 +5329,9 @@ If the value isn't a valid URL, the sign-in screen reports it, and the rest of t
 
 ### `forceLoginOrgUUID`
 
-From a managed source, require claude.ai account logins to belong to one Anthropic organization, given as a single UUID, or to any of several organizations, given as an array. From any settings file, Claude Code also uses a single UUID to pre-select that organization during a claude.ai or Claude Console login, and pre-selects nothing for an array. If you set the key in any settings file, Claude Code also stops offering the [keyless Console sign-in](https://code.claude.com/docs/en/authentication.md#sign-in-without-an-api-key) in the sessions that file applies to and creates an API key instead.
+From a managed source, require claude.ai account logins to belong to one Anthropic organization, given as a single UUID, or to any of several organizations, given as an array. From any settings file, Claude Code also uses a single UUID to pre-select that organization during a claude.ai or Claude Console login, and pre-selects nothing for an array.
+
+If you set the key in any settings file, Claude Code stops offering the [keyless Console sign-in](https://code.claude.com/docs/en/authentication.md#sign-in-without-an-api-key) in the sessions that file applies to.
 
 * **Scope**: [`Any file`](#scopes). In a settings file that isn't a managed source, Claude Code doesn't check which organization a login belongs to, and a single UUID pre-selects the organization during login.
 * **Type**: string, one UUID, or array of strings, several UUIDs

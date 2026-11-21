@@ -679,6 +679,9 @@ With `--json`, Claude Code writes the report to stdout as one JSON object with t
 * `manifest`: the manifest's own result, or `null` for a run without a manifest
 * `contents`: per-file results, each naming its `file` and carrying `errors`, `warnings`, and `notes` arrays. Files with no error, warning, or note get no entry, so `contents` is empty when there's nothing to report. For a [directory with `marketplace.json` and `plugin.json`](#validate-a-directory), `manifest` is the `marketplace.json` result and `plugin.json` results go in `contents`
   * `gatingHooks`: whether each [mod](https://code.claude.com/docs/en/plugins/mods/overview.md) hook that can refuse an action, such as a `tool.call` hook, has a [`.catch` handler](https://code.claude.com/docs/en/plugins/mods/events#handle-a-hook-that-fails). Each item gives `module`, `pattern`, `hook`, and `hasCatch`. Requires Claude Code v2.1.290 or later
+  * `modules`: one item per hooks module, with fields such as `hooks` and `uses`, or `null` when it's unknown which code loads. Requires Claude Code v2.1.326 or later
+  * `wasm`: the WebAssembly each hooks module compiles. Requires Claude Code v2.1.326 or later
+* `provides`: the plugin's components by kind, or `null` when the run can't list them. Requires Claude Code v2.1.326 or later
 * `advice`: the [advice](#advice-on-the-readme) of the run, each entry naming the README as `file` and carrying a `message` and the `installLine` to paste. Empty when there is none. Requires Claude Code v2.1.295 or later
 * `hosts`: `named` hosts, plus `unread` plugin parts that could reach others. `null` when the run can't list them. A plugin can reach unlisted hosts. Requires Claude Code v2.1.328 or later
 

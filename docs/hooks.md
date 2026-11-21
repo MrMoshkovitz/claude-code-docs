@@ -70,7 +70,7 @@ To see how the event, the matcher, and the handler fit together, consider this `
 
 > [tab] macOS/Linux
 >
-> The `matcher` narrows to Bash tool calls and [Monitor commands](#match-monitor-commands), and the `if` condition narrows further to Bash subcommands matching `rm *`, so `block-rm.sh` only spawns when both filters match:
+> The `matcher` narrows to Bash tool calls and [Monitor commands](#match-monitor-commands), and the `if` condition narrows further to Bash subcommands matching `rm *`:
 >
 > ```json theme={null}
 > {
@@ -994,7 +994,7 @@ The field has no effect on these hooks:
 
 > [!NOTE]
 >
-> If you use Code Mode, failures on `PreToolUse` work differently. See [Tool call refused by a hook](https://code.claude.com/docs/en/code-mode.md#tool-call-refused-by-a-hook).
+> If you use Code Mode, timeouts on `PreToolUse` work differently. See [Tool call refused by a hook](https://code.claude.com/docs/en/code-mode.md#tool-call-refused-by-a-hook).
 
 #### Failed hooks on Windows without Git Bash
 
@@ -1229,7 +1229,7 @@ A few events can also rewrite content rather than only allow or block it:
 * `PostToolUse`: `updatedToolOutput` replaces the tool's result. In a [Cowork](https://claude.com/docs/cowork/overview) cloud session, Claude Code ignores `updatedToolOutput` when the tool is `AskUserQuestion` or `ExitPlanMode`, and Claude reads the original answer or plan. See [PostToolUse decision control](#posttooluse-decision-control)
 * `UserPromptSubmit`: can't replace the prompt; it only injects `additionalContext` alongside it
 
-For redaction or transformation use cases, intercept at `PreToolUse` for outbound tool inputs and `PostToolUse` for the results of successful calls. `PostToolUseFailure` can't rewrite a result, so a failing command's output reaches Claude unchanged.
+For redaction or transformation use cases, intercept at `PreToolUse` for outbound tool inputs and `PostToolUse` for the results of successful calls. `PostToolUseFailure` can't rewrite a result, so it can't redact a failing command's output.
 
 Here are examples of each pattern in action:
 
@@ -1786,7 +1786,7 @@ Batches with no markdown pass through unchanged. If the script fails, for exampl
 
 ### PreToolUse
 
-Runs after Claude creates tool parameters and before processing the tool call. Matches on any tool name except `EndConversation`: built-in tools such as `Bash`, `PowerShell`, `Edit`, `Write`, `Read`, `Glob`, `Grep`, `Agent`, `Workflow`, `WebFetch`, `WebSearch`, `AskUserQuestion`, and `ExitPlanMode`, and any [MCP tool names](#match-mcp-tools).
+Runs after Claude creates tool parameters and before processing the tool call. Matches on tool names other than `EndConversation`: built-in tools such as `Bash`, `PowerShell`, `Edit`, `Write`, `Read`, `Glob`, `Grep`, `Agent`, `Workflow`, `WebFetch`, `WebSearch`, `AskUserQuestion`, and `ExitPlanMode`, and any [MCP tool names](#match-mcp-tools).
 
 To run a hook when a specific file changes on disk, whatever wrote it, use [FileChanged](#filechanged) instead of matching file-editing tools by name. Unlike PreToolUse, Claude Code runs FileChanged hooks after the change, and they have no decision control, so they can't block the write.
 

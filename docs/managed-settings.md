@@ -122,6 +122,8 @@ When two files set the same key, Claude Code combines them by these rules:
 
 ## How Claude Code combines managed sources
 
+If you set your provider or gateway at claude.ai under **Organization settings > Desktop 3P**, first read [which settings take priority](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code#which-settings-take-priority) in the Enterprise Admin Console guide.
+
 When your organization delivers more than one managed source to the same machine, the [`managedSourcesBehavior`](https://code.claude.com/docs/en/settings-reference#managedsourcesbehavior) key decides what Claude Code does with the others:
 
 * **`"first-wins"`, the default**: Claude Code uses the highest-ranked source that delivers at least one policy key and ignores the rest rather than merging them, apart from the keys in [Keys read from every admin source](#keys-read-from-every-admin-source). Claude Code shows no warning for the sources it skips; `/status` [names the source it used and the ones it skipped](#read-the-source-in-/status).

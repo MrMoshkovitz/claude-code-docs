@@ -299,7 +299,9 @@ Auto-compaction runs automatically when the context window approaches capacity. 
 
 To change the auto-compact window instead, set [`CLAUDE_CODE_AUTO_COMPACT_WINDOW`](https://code.claude.com/docs/en/env-vars) in your environment variables, or run [`/autocompact`](https://code.claude.com/docs/en/commands#all-commands) with a token count in a session where the variable isn't set.
 
-[Subagents](https://code.claude.com/docs/en/sub-agents.md) work the same way they do locally. Claude can spawn them with the Agent tool to offload research or parallel work into a separate context window, keeping the main conversation lighter. Outside a [project](https://code.claude.com/docs/en/claude-projects.md#what-threads-pick-up-from-your-repositories)'s threads, subagents defined in your repo's `.claude/agents/` load automatically.
+#### Use subagents and agent teams
+
+[Subagents](https://code.claude.com/docs/en/sub-agents.md) work the same way they do locally. Claude can spawn them with the Agent tool to offload research or parallel work into a separate context window, keeping the main conversation lighter. Subagents defined in your repo's `.claude/agents/` load automatically. For a project, check [which threads load them](https://code.claude.com/docs/en/claude-projects.md#what-threads-pick-up-from-your-repositories).
 
 [Agent teams](https://code.claude.com/docs/en/agent-teams.md) are off by default but can be enabled by adding `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` to your [environment variables](https://code.claude.com/docs/en/cloud-environments.md#set-environment-variables).
 
@@ -475,6 +477,7 @@ These errors come from running `claude` with [`--cloud <session-id>`](#send-foll
 | `Attaching to an existing cloud session is not enabled for your account.` | You ran `--cloud <session-id>` without `-p`. Send the message with `claude -p "your message" --cloud <session-id>`. |
 | `Session not found: <id>` | The ID or URL doesn't match a session you can access. Check it against the session's claude.ai/code URL. |
 | `cloud session <id> is archived and cannot accept new messages` | The session has been archived. Start a new session instead. |
+| `--fork-session can't fork a cloud session, so nothing was opened or sent.` | To message the existing cloud session, run `claude -p "your message" --cloud <session-id>` without `--fork-session`. |
 
 ### Environment expired
 

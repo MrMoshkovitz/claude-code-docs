@@ -11,6 +11,8 @@ Server-managed settings let organization Owners centrally configure Claude Code 
 > [!NOTE]
 >
 > Server-managed settings are available for [Claude for Teams](https://claude.com/pricing?utm_source=claude_code\&utm_medium=docs\&utm_content=server_settings_teams#team-&-enterprise) and [Claude for Enterprise](https://anthropic.com/contact-sales?utm_source=claude_code\&utm_medium=docs\&utm_content=server_settings_enterprise) customers.
+>
+> If you set your provider or gateway at claude.ai under **Organization settings > Desktop 3P**, follow the [Enterprise Admin Console guide](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code) instead.
 
 ## Requirements
 
@@ -398,7 +400,7 @@ Server-managed settings require a direct connection to `api.anthropic.com`. Deli
 * A directly configured API key
 * A `user_oauth` [Anthropic profile](https://code.claude.com/docs/en/authentication.md#anthropic-profiles-and-federation-credentials), unless the profile sets a `base_url` other than the Anthropic API. Requires Claude Code v2.1.257 or later.
 
-Neither keys returned by an [`apiKeyHelper`](https://code.claude.com/docs/en/settings-reference#apikeyhelper) script nor [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) credentials trigger the settings fetch.
+Neither keys returned by an [`apiKeyHelper`](https://code.claude.com/docs/en/settings-reference#apikeyhelper) script nor [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) credentials trigger the settings fetch. If you set your provider or gateway in the Enterprise Admin Console, see [when console settings apply](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code#which-settings-take-priority).
 
 A session receives the managed settings of the organization that owns the credential it authenticates with. An API key from the [Claude Console](https://platform.claude.com) belongs to the Console organization it was created in, which is a separate organization from your claude.ai Team or Enterprise organization. Settings you configure in claude.ai Admin Settings therefore don't reach a session that authenticates with that key, such as a CI job that uses your company's Console API key. To apply them to that job, use one of these options. The OAuth token option doesn't apply to a job that runs with [`--bare`](https://code.claude.com/docs/en/headless#start-faster-with-bare-mode), because bare mode doesn't read `CLAUDE_CODE_OAUTH_TOKEN`.
 

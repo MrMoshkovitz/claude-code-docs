@@ -247,6 +247,7 @@ Match the message you see to a section below.
 | `Error: bypassPermissions not supported in restricted mode` | [Restricted mode](https://code.claude.com/docs/en/permission-modes.md#restricted-mode-refuses-bypasspermissions) |
 | `Session was started with bypass permissions, so plan mode won't ask before most edits or commands` | [Plan mode](https://code.claude.com/docs/en/permission-modes.md#analyze-before-you-edit-with-plan-mode) |
 | `Cloud sessions cannot be created from a --restricted session` | [Command-line errors](#cloud-sessions-cannot-be-created-from-a-restricted-session) |
+| `--fork-session can't fork a cloud session, so nothing was opened or sent` | [Errors when sending to a cloud session](https://code.claude.com/docs/en/claude-code-on-the-web.md#errors-when-sending-to-a-cloud-session) |
 | `Cloud sessions are disabled by your organization's policy` | [Command-line errors](#cloud-sessions-are-disabled-by-your-organizations-policy) |
 | `Cloud sessions use your claude.ai login`, at the end of a policy denial that names a credential | [Command-line errors](#cloud-sessions-use-your-claude-ai-login) |
 | `Couldn't verify your organization's policy for cloud sessions` | [Command-line errors](#couldnt-verify-your-organizations-policy-for-cloud-sessions) |
@@ -467,6 +468,7 @@ Match the message you see to a section below.
 | `Claude Code did not finish starting` | [Wrapper and IDE errors](#subprocess-initialization-did-not-complete-within-60000ms) |
 | `The connection to Claude Code ended before this message completed` | [Wrapper and IDE errors](#the-connection-to-claude-code-ended-before-this-message-completed) |
 | `Could not locate the Claude CLI on PATH` | [Wrapper and IDE errors](#could-not-locate-the-claude-cli-on-path) |
+| `Claude Code could not be started from <command>: it is the <system> build, and this computer needs the <build> build` | If you set [`claudeCode.claudeProcessWrapper`](https://code.claude.com/docs/en/vs-code#extension-settings), point it at a program built for `<build>`. Otherwise, install the VS Code extension package for `<build>`. |
 | `The Claude Code program for this computer, the <build> build, could not be found` | [Wrapper and IDE errors](#the-claude-code-program-for-this-computer-could-not-be-found) |
 | `Restored the code, but skipped N files` | [Rewind warnings and errors](#restored-the-code-but-skipped-files) |
 | `No files were restored: N files failed (backup missing, or the file could not be updated)` | [Rewind warnings and errors](#no-files-were-restored) |
@@ -3918,7 +3920,9 @@ build.sh --target�dist
 
 ### Skill, command, or hook over the 4,000,000-character limit
 
-A message with `more than 4,000,000 characters` means a skill, a command, or a [prompt or agent hook](https://code.claude.com/docs/en/hooks.md#prompt-and-agent-hook-fields) didn't run. If you pasted long text as arguments, save it to a file, run `/clear`, since the text stays in the conversation, then pass its path. Outside [Code Mode](https://code.claude.com/docs/en/code-mode.md#tool-call-refused-by-a-hook), a `PreToolUse` prompt or agent hook over the limit doesn't block the call. Use a [command hook](https://code.claude.com/docs/en/hooks.md#command-hook-fields), which has no such limit.
+A message with `more than 4,000,000 characters` means a skill, a command, or a [prompt or agent hook](https://code.claude.com/docs/en/hooks.md#prompt-and-agent-hook-fields) didn't run. If you pasted long text as arguments, save it to a file, run `/clear`, since the text stays in the conversation, then pass its path.
+
+If your `PreToolUse` prompt or agent hook is over the limit, a tool call that Claude makes directly isn't blocked. Use a [command hook](https://code.claude.com/docs/en/hooks.md#command-hook-fields), which has no such limit. For a call from code in Code Mode, see [Tool call refused by a hook](https://code.claude.com/docs/en/code-mode.md#tool-call-refused-by-a-hook).
 
 ### Input must be provided when using `--print`
 
