@@ -120,6 +120,11 @@ Three fields are always present:
 
 Other fields, such as `pluginId`, `scope`, and `failureCode`, appear only when they apply.
 
+Two fields report how a [`command` source](https://code.claude.com/docs/en/plugins/marketplace-reference#command-plugin-source) ran. Both require Claude Code v2.1.330 or later:
+
+* `commandPrinted`: `true` when the install succeeded and the source's command wrote to stderr
+* `commandFailed`: `true` when the source's command exited with an error, was killed by a signal, or timed out
+
 The `--json` option on `plugin uninstall`, `plugin update`, `plugin enable`, and `plugin disable` prints the same object with that subcommand's own fields.
 
 A usage error, such as an invalid `--scope`, prints no result line and exits `1` with the reason on stderr.

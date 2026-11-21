@@ -1225,7 +1225,7 @@ If Claude uses your skill when you don't want it:
 
 If Claude follows a skill in its first response and stops following it later, start with whichever of these cases matches:
 
-* **Claude skipped a rule that must hold every time**: move the rule into a [hook](https://code.claude.com/docs/en/hooks-guide.md). Claude Code runs a hook every time its event occurs, such as before each file edit, whether or not Claude is following the skill. To keep the rule with the skill, define the hook in the skill's [`hooks` frontmatter](https://code.claude.com/docs/en/hooks#hooks-in-skills-and-agents). That hook applies from the time the skill is invoked until the session ends.
+* **Claude skipped a rule that must hold every time**: move the rule into a [hook](https://code.claude.com/docs/en/hooks-guide.md) in a [settings file](https://code.claude.com/docs/en/hooks.md#hook-locations) or a plugin's `hooks/hooks.json`. Claude Code runs that hook when its event occurs, such as before a file edit, whether or not Claude is following the skill.
 * **Claude skipped guidance it should apply with judgment**: word the guidance so it applies to the whole task, for example "Run the tests after every edit" rather than "Run the tests". Claude Code adds the skill's content to the conversation when the skill is invoked and [doesn't re-read the file](#skill-content-lifecycle) on later turns.
 * **The conversation was compacted**: invoke the skill again to restore its full content. After [compaction](https://code.claude.com/docs/en/how-claude-code-works.md#when-context-fills-up), Claude Code [can keep only the start of an invoked skill](#skill-content-lifecycle), so put the most important instructions near the top of `SKILL.md`.
 

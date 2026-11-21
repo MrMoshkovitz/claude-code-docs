@@ -489,7 +489,7 @@ To turn workflows off for your whole organization, set `"disableWorkflows": true
 
 When workflows are disabled:
 
-* `/workflows`, the workflow commands, and the `/workflow-authoring` skill are unavailable
+* The `/workflows` progress view, the workflow commands, and the `/workflow-authoring` skill are unavailable
 * The `ultracode` keyword no longer triggers a run, and the **Ultracode** toggle is removed from `/effort`
 
 A run that was already in progress keeps going.

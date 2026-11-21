@@ -818,7 +818,7 @@ Where you add a hook determines its scope:
 | `.claude/settings.local.json` | Single project | No, gitignored when Claude Code saves a setting to it |
 | Managed policy settings | Organization-wide | Yes, admin-controlled |
 | [Plugin](https://code.claude.com/docs/en/plugins/overview.md) `hooks/hooks.json` | When plugin is enabled | Yes, bundled with the plugin |
-| [Skill](https://code.claude.com/docs/en/skills.md) frontmatter | The rest of the session once the skill is invoked. See [Hooks in skills and agents](https://code.claude.com/docs/en/hooks.md#hooks-in-skills-and-agents) | Yes, defined in the skill file |
+| [Skill](https://code.claude.com/docs/en/skills.md) frontmatter | See [Hooks in skills and agents](https://code.claude.com/docs/en/hooks.md#hooks-in-skills-and-agents) | Yes, defined in the skill file |
 | [Subagent](https://code.claude.com/docs/en/sub-agents.md) frontmatter | While that subagent is running | Yes, defined in the subagent file |
 
 Run [`/hooks`](https://code.claude.com/docs/en/hooks#the-%2Fhooks-menu) in Claude Code to browse all configured hooks grouped by event.

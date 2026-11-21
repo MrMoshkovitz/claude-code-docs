@@ -372,7 +372,7 @@ Computer use lets Claude open your apps, control your screen, and work directly 
 
 > [!NOTE]
 >
-> Computer use is a research preview on macOS and Windows that requires a Pro, Max, or Ultra plan. It is not available on Team or Enterprise plans. The Claude Desktop app must be running. On macOS, computer use requires macOS 14 or later.
+> Computer use in the Code tab is available on macOS and Windows and requires a Pro, Max, or Ultra plan. It is not available on Team or Enterprise plans. The Claude Desktop app must be running. On macOS, computer use requires macOS 14 or later.
 
 Check that computer use is [on in Settings](#enable-computer-use) before you ask Claude to control your screen. On macOS, you also need to grant Accessibility and Screen Recording permissions.
 
@@ -2330,6 +2330,8 @@ To see which version of the desktop app you're running:
 * **Windows**: click **Help**, then **About Claude**
 
 Click the version number to copy it to your clipboard.
+
+To get new versions sooner on Claude Desktop v4.29.0 or later, set **Release channel** to **Latest**. Go to **Settings > This computer > System**, or to **Settings > Desktop app** if the menu doesn't list **This computer**. For where the setting is available and what to expect when you switch back to **Stable**, see [Choose a release channel](https://support.claude.com/en/articles/10065433-install-claude-desktop#h_ac219b3bde).
 
 #### Claude Code version in the Code tab
 

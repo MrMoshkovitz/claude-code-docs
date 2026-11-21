@@ -218,13 +218,13 @@ To create a connector-backed page, name the connector and the data you want in y
 Build a dashboard artifact of our open pull requests that pulls the live list through my GitHub connector when the page loads.
 ```
 
-Claude declares which connectors the page may call as part of publishing, and the page can't call connectors outside that declaration. Only connectors from your claude.ai account qualify: Claude names them in the declaration, and when someone views the page, each call [runs through the viewing account's own connection](#how-connector-calls-work-for-viewers) to that connector. Local MCP servers you configure in Claude Code, such as servers from `.mcp.json`, can supply data while Claude builds the page, but the published page can't call them.
+Use a connector from your claude.ai account. Local MCP servers you configure in Claude Code, such as servers from `.mcp.json`, can supply data while Claude builds the page, but the published page can't call them.
 
 The page fetches data when it loads and can refresh on an interval or when a viewer uses a refresh control on the page. Responses are cached in the viewer's browser, so a reopened page renders from the cached responses immediately, then updates with fresh results.
 
 ### How connector calls work for viewers
 
-When a published page calls a connector, the call uses the account of the person viewing the page, not the account of the person who published it:
+By default, when a published page calls a connector, the call uses the account of the person viewing the page, not the account of the person who published it:
 
 * **Each viewer uses their own connectors**: calls go through the viewing account's connected tools, so two people opening the same dashboard can see different data depending on what their accounts can access. The page never sees anyone's credentials; claude.ai makes the calls on the page's behalf.
 * **Viewers approve access first**: claude.ai asks each viewer for permission before the page's first connector call. A viewer who declines, or who hasn't connected a connector the page uses, still sees the page without its live sections.
@@ -234,11 +234,15 @@ When you plan to share a connector-backed page, ask Claude to include a fallback
 
 You can [share a connector-backed page](#share-an-artifact) within your organization or publicly, as your plan and organization settings allow. Connector calls don't run for a viewer who opens the public link without signing in to claude.ai, or from outside your organization. That viewer sees the page without its live sections.
 
+> [!WARNING]
+>
+> If you turn on [live sharing](https://support.claude.com/en/articles/17454700-get-started-with-claude-data#h_9b12806a2a) for a dashboard, the calls you share run through your account. Check what data the dashboard shows before you share it.
+
 ### The page shows no live data for a viewer
 
 When a connector-backed page renders but its live sections stay empty for a viewer in your organization, work through these causes:
 
-* **The viewer hasn't connected the connector**: connectors are per-account, so each viewer needs their own connection to every connector the page calls. They can add one at [claude.ai/customize/connectors](https://claude.ai/customize/connectors), then reload the page.
+* **The viewer hasn't connected the connector**: they can add it at [claude.ai/customize/connectors](https://claude.ai/customize/connectors), then reload the page.
 * **The viewer declined the permission ask**: a denial lasts for the rest of that page load. Reloading the page brings the permission ask back.
 * **Connector calls are turned off for the organization**: an Owner controls the [**Enable artifact connectors** toggle](#control-connector-calls-from-artifacts) in admin settings.
 * **The page calls tool names the connector doesn't expose**: the affected sections stay empty for everyone, including you. This can happen when a page names the individual tools behind a gateway-style connector that exposes only a few tools of its own. Ask Claude to fix the tool names the page calls and publish it again.
@@ -257,7 +261,7 @@ To offer a file, ask for the control and the file format in your prompt:
 Add a button that downloads this table as a CSV file.
 ```
 
-Claude declares the downloads capability as part of publishing, the same way it [declares connectors](#pull-live-data-with-mcp-connectors).
+Claude declares the downloads capability as part of publishing.
 
 ## What you can build
 

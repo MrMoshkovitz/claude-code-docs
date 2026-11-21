@@ -180,7 +180,9 @@ Server-managed settings and [endpoint-managed settings](https://code.claude.com/
 
 Within the managed tier, Claude Code by default uses the first source that delivers at least one policy key, checking server-managed settings first and then endpoint-managed settings, apart from the [exception keys covered next](#per-key-exceptions-across-managed-sources). [How Claude Code combines managed sources](https://code.claude.com/docs/en/managed-settings.md#precedence-within-the-managed-tier) has the full ranking, the carve-out for the control keys, and the opt-in that applies every source.
 
-If the selected source is an MDM policy or managed settings file whose [`policyHelper`](https://code.claude.com/docs/en/settings-reference#policyhelper) supplies managed settings, the helper's output replaces that source as the only managed configuration for the run. Claude Code doesn't consult a `policyHelper` configured in MDM or file-based settings while server-managed settings deliver a policy key.
+#### When endpoint-managed settings take over
+
+If the selected source is an MDM policy or managed settings file whose `policyHelper` supplies managed settings, see [what the helper's output replaces](https://code.claude.com/docs/en/settings-reference.md#write-the-helper-output). Claude Code doesn't consult a `policyHelper` configured in MDM or file-based settings while server-managed settings deliver a policy key.
 
 If a later fetch finds the server-managed settings removed, Claude Code runs that helper right away instead of at the next launch. The [`policyHelper`](https://code.claude.com/docs/en/settings-reference#policyhelper) entry covers what happens when that run fails.
 
@@ -198,6 +200,7 @@ These keys are exceptions to the no-merge rule:
   * **Credential-paired routing**: a source that pairs routing variables with a selected-source-only credential key, such as `apiKeyHelper` or `otelHeadersHelper`, contributes those routing variables only when it wins the slot.
 * **`allowedProviders`**: a list set on the machine and a server-managed list combine as [its entry's Scope note](https://code.claude.com/docs/en/settings-reference.md#allowedproviders) states. Requires Claude Code v2.1.285 or later
 * **First-party sign-in keys**: [`forceLoginOrgUUID`](https://code.claude.com/docs/en/settings-reference#forceloginorguuid) and the `"claudeai"` and `"console"` values of [`forceLoginMethod`](https://code.claude.com/docs/en/settings-reference#forceloginmethod). If you also deploy an MDM policy or managed settings file, set them there and in server-managed settings from claude.ai until every client runs v2.1.299 or later. For where to set the keys afterward, and which source's value applies, see [Which managed source supplies login keys](https://code.claude.com/docs/en/managed-settings.md#which-managed-source-supplies-login-keys).
+* **`enforceAnthropicSignIn`**: [its entry's Scope note](https://code.claude.com/docs/en/settings-reference.md#enforceanthropicsignin) says which sources supply it
 * **Gateway sign-in keys**: Claude Code never reads [`forceLoginGatewayUrl`](https://code.claude.com/docs/en/settings-reference#forcelogingatewayurl), [`gatewayInternalNetworks`](https://code.claude.com/docs/en/settings-reference#gatewayinternalnetworks), or the `"gateway"` value of [`forceLoginMethod`](https://code.claude.com/docs/en/settings-reference#forceloginmethod) from server-managed settings, so a value there neither applies nor hides one set in an MDM policy or managed settings file. The [`managedSourcesBehavior` entry](https://code.claude.com/docs/en/settings-reference#managedsourcesbehavior) says which admin source on the machine supplies them.
 
 #### When a machine's `apiKeyHelper` isn't in effect
@@ -311,8 +314,6 @@ To enable this, add the key to your managed settings configuration:
 You can also set this key in an [endpoint-managed](https://code.claude.com/docs/en/managed-settings.md#delivery-mechanisms) MDM profile or system `managed-settings.json` file to enforce fail-closed behavior on first launch, before any server payload has arrived. This flag is an exception to the [precedence rule](#settings-precedence) above: Claude Code honors it when any admin-controlled managed source sets it, even if a cached server-managed payload is also present, so it doesn't ignore an MDM-delivered value when server-managed settings exist.
 
 On later startups, Claude Code reads a server-delivered value from the cached settings, so the setting is active before the new session's first fetch. To keep the setting active without relying on the cached copy, also set the key in an endpoint-managed source.
-
-When a [`policyHelper`](https://code.claude.com/docs/en/settings-reference#policyhelper) supplies managed settings, its output replaces every other managed source for the keys Claude Code reads after startup. For the sources Claude Code reads this key from, see [its settings entry](https://code.claude.com/docs/en/settings-reference.md#forceremotesettingsrefresh). The `policyHelper` entry says which sources Claude Code reads the helper from and when it runs.
 
 The settings fetch also sends a `Cache-Control: no-cache` header so intermediate HTTP proxies don't serve a stale response.
 
