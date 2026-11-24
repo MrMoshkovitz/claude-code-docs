@@ -51,7 +51,7 @@ Select the repositories you want reviewed, then click the button that adds them,
 
 **5. Click Turn on**
 
-In the **Choose what Claude does on these repositories** dialog, leave **Code review** selected. If **Steward** is selected and you can change it, clear it unless you also want PR Steward on these repositories. Then click **Turn on**, which is the click that turns Code Review on.
+In the **Choose what Claude does on these repositories** dialog, leave **Code review** selected. If **Steward** is selected and you can change it, clear it unless you also want [PR Steward](https://code.claude.com/docs/en/pr-steward.md) on these repositories. Then click **Turn on**, which is the click that turns Code Review on.
 
 If you close the dialog any other way, your repositories stay added and nothing is turned on. To turn Code Review on then, use the switch under **Review** again.
 
@@ -94,7 +94,11 @@ Each repository has its own **Review runs** setting, which decides when its pull
 
 Manual is useful for high-traffic repositories where you want to opt specific pull requests into review, or to start reviewing pull requests only once they're ready. To compare what each option does to spend, see [How often reviews run](https://code.claude.com/docs/en/code-review-costs.md#how-often-reviews-run).
 
-To change the setting, click **Edit** on the repository's row in the **Repositories** table and select a **Review runs** option. The choice saves as soon as you select it. The table's **Code review** column shows it shortened to Once per PR, Every push, or Manual.
+To change the setting on the [**Claude Ship**](https://claude.ai/admin-settings/claude-code#code-review) page, click **Edit** on the repository's row in the **Repositories** table and select a **Review runs** option:
+
+![A repository's Edit dialog with the Review runs menu open, listing Once after PR creation, After every push, which is selected, and Manual (@claude review).](https://mintcdn.com/claude-code/cMjxXVBUSLLh9iVu/images/code-review-setup-review-runs-light.png?fit=max\&auto=format\&n=cMjxXVBUSLLh9iVu\&q=85\&s=fe7c63cddcc105ddf7bab4e10e104ba7)
+
+Your choice saves as soon as you select it. The **Repositories** table's **Code review** column shows it shortened to Once per PR, Every push, or Manual.
 
 * **Drafts and pull requests from forks**: whichever option you choose, [automatic reviews skip both](https://code.claude.com/docs/en/code-review-pull-requests.md#review-drafts-and-pull-requests-from-forks)
 * **New repositories**: a repository you add from the **Add a repository** dialog starts at **After every push**. If its GitHub organization is [covered as a whole](#cover-a-whole-github-organization), it takes that organization row's setting instead.

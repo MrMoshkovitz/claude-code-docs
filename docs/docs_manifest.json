@@ -321,8 +321,8 @@
     "changelog.md": {
       "original_url": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
       "original_raw_url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
-      "hash": "b547b93af776858efdec16acc445e4166351b018b9970cb66ac7ce580ecdd23d",
-      "last_updated": "2026-11-21T00:05:16.938024",
+      "hash": "4db5e4789857123a6418b315c42e5ed3e2ea7a306d76d8e45417c19fe1cd2c45",
+      "last_updated": "2026-11-24T00:05:31.098211",
       "source": "claude-code-repository"
     },
     "channels.md": {
@@ -478,8 +478,8 @@
     "code-review-setup.md": {
       "original_url": "https://code.claude.com/docs/en/code-review-setup",
       "original_md_url": "https://code.claude.com/docs/en/code-review-setup.md",
-      "hash": "21cb03bbd5baa65a908a2872f208ba7b363b6fd2f4b6d20e0771c257532563c3",
-      "last_updated": "2026-11-23T21:01:43.038967"
+      "hash": "9f8c9e67dc7e2fcd2dfaa1dca9a4f5d3020a786caf95fae6391f49db7e106553",
+      "last_updated": "2026-11-24T00:04:14.160007"
     },
     "code-review-troubleshooting.md": {
       "original_url": "https://code.claude.com/docs/en/code-review-troubleshooting",
@@ -1060,8 +1060,8 @@
     "pr-steward-setup.md": {
       "original_url": "https://code.claude.com/docs/en/pr-steward-setup",
       "original_md_url": "https://code.claude.com/docs/en/pr-steward-setup.md",
-      "hash": "340bd2d12655c044f79289f7a5050865475c0ed410d4abb65e6ada5cf2a3a287",
-      "last_updated": "2026-11-23T21:02:37.121670"
+      "hash": "9cfd6be4d816c21168d325f66efdd893ff8151befad5b654fb42bab1d4e4cc37",
+      "last_updated": "2026-11-24T00:05:07.225560"
     },
     "pr-steward-troubleshooting.md": {
       "original_url": "https://code.claude.com/docs/en/pr-steward-troubleshooting",
@@ -1323,8 +1323,8 @@
     }
   },
   "fetch_metadata": {
-    "last_fetch_completed": "2026-11-23T21:03:01.024128",
-    "fetch_duration_seconds": 123.403536,
+    "last_fetch_completed": "2026-11-24T00:05:31.098267",
+    "fetch_duration_seconds": 120.565523,
     "total_pages_discovered": 220,
     "pages_fetched_successfully": 221,
     "pages_failed": 0,
@@ -1334,7 +1334,7 @@
     "total_files": 220,
     "fetch_tool_version": "3.0"
   },
-  "last_updated": "2026-11-23T21:03:01.024158",
+  "last_updated": "2026-11-24T00:05:31.098290",
   "base_url": "https://raw.githubusercontent.com/MrMoshkovitz/claude-code-docs/main/docs/",
   "github_repository": "MrMoshkovitz/claude-code-docs",
   "github_ref": "main",

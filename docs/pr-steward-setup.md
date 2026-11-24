@@ -56,7 +56,7 @@ Start on [**Organization settings > Claude Ship**](https://claude.ai/admin-setti
 
 The **Repositories** table on that page lists each repository with its **Steward** setting:
 
-![The Repositories table on the Claude Ship page, with an Add button and three repositories whose Steward setting is Manual, Off, and On. Each row has an Edit button.](https://mintcdn.com/claude-code/sMH7RDpTvyWlAkrg/images/pr-steward-setup-repositories.png?fit=max\&auto=format\&n=sMH7RDpTvyWlAkrg\&q=85\&s=546d20bc19c36aa40b6973d7c4b77527)
+![The Repositories table on the Claude Ship page, with an Add button and three repositories whose Steward setting is Manual, Off, and On. Each row has an Edit button.](https://mintcdn.com/claude-code/cMjxXVBUSLLh9iVu/images/pr-steward-setup-repositories.png?fit=max\&auto=format\&n=cMjxXVBUSLLh9iVu\&q=85\&s=a76bbd05275c5a96053cbbe7e6f1a547)
 
 > [!WARNING]
 >
@@ -101,7 +101,11 @@ When PR Steward's fixes match what your reviewers would do, set the repository t
 
 ### Choose when PR Steward starts in each repository
 
-On the **Claude Ship** page, click **Edit** beside a repository and set **Steward**:
+On the **Claude Ship** page, click **Edit** beside a repository and open the **Steward** menu:
+
+![The Steward menu in a repository's Edit dialog, listing Off, On, On (including drafts), and Manual (@claude steward), which is selected.](https://mintcdn.com/claude-code/cMjxXVBUSLLh9iVu/images/pr-steward-setup-edit-options-light.png?fit=max\&auto=format\&n=cMjxXVBUSLLh9iVu\&q=85\&s=6dd7aaf84aa00b6893b9e7533b1089d7)
+
+Select when you want PR Steward to start:
 
 | Option | When PR Steward starts |
 | :- | :- |
