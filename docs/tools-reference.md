@@ -226,6 +226,7 @@ Setting [`CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1`](https://code.claude.com/docs/
 The result of a command moved to the background states what happened:
 
 * When the timeout triggers the move, the result reports it explicitly: `Command did not complete within its 120s timeout and was moved to the background`, with the seconds matching the timeout that applied, followed by the task ID and the path of the file the output is being written to.
+* In an interactive session, a [background subagent's](https://code.claude.com/docs/en/sub-agents.md#run-subagents-in-foreground-or-background) command can move after 3 minutes, before its timeout. The result then includes `Command was moved to the background (ID: <id>) after running for 180s`.
 * A `cd`, `pushd`, `popd`, or `chdir` inside a command that is moved to the background never carries over: the result states `Session cwd remains <dir>; directory changes made by the backgrounded command do not apply to subsequent commands.`, so Claude doesn't act on a directory change that didn't happen.
 
 ### Memory limit on Linux and WSL
